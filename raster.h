@@ -1,3 +1,13 @@
+/*
+File: RASTER.H
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 2 - COMP 2659 
+Date Modified: February 2, 2026
+File Description: 
+
+*/
+
 #ifndef RASTER_H
 #define RASTER_H
 
