@@ -159,7 +159,17 @@ void plot_triangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 base, UINT16 hei
 
  OUTPUT: None
 */
-void plot_bitmap_8(UINT8 *base, UINT16 row, UINT16 col, UINT16 height);
+void plot_bitmap_8(UINT8 *base, UINT16 row, UINT16 col, UINT16 height) {
+    UINT16 r, c;
+    
+    for (r = 0; r < height; r++) {
+        for (c = 0; c < 8; c++) {
+            if (base[r] & (0x80 >> c)) {
+                plot_pixel(base, row + r, col +c);
+            }
+        }
+    }
+}
 
 
 /*----- Function: plot_bitmap_16 -----
