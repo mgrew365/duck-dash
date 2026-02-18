@@ -231,6 +231,11 @@ void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch);
 
  OUTPUT: None
 */
-void plot_string(UINT8 *base, UINT16 row, UINT16 col, char *ch);
-
+void plot_string(UINT8 *base, UINT16 row, UINT16 col, char *ch) {
+    
+    while (*ch) {
+        plot_character(base, row, col, *ch++);
+        col += 8;
+    }
+}
 #endif
