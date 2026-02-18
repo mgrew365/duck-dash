@@ -63,8 +63,13 @@ void plot_pixel(UINT8 *base, UINT16 row, UINT16 col);
 */
 
 
-void plot_horizontal_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length);
+void plot_horizontal_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length) {
+    UINT16 i;
 
+    for (i = 0; i < length; i++) {
+        plot_pixel((UINT8 *)base, row, col + i)
+    }
+}
 
 /*----- Function: plot_vertical_line -----
 
