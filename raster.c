@@ -61,10 +61,6 @@ void plot_pixel(UINT8 *base, UINT16 row, UINT16 col);
 
  OUTPUT: None
 */
-/* The below code is straight from steves slides */
-if (col >= 0 && col < SCREEN_WIDTH && row >= 0 && row < SCREEN_HEIGHT) {
-       *(base + row * 80 + (col >> 3)) |= (1 << (7 - (col & 7)))
-}
 
 
 void plot_horizontal_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length);
