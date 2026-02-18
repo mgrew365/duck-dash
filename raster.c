@@ -195,7 +195,17 @@ void plot_bitmap_16(UINT16 *base, UINT16 row, UINT16 col, UINT16 height);
 
  OUTPUT: None
 */
-void plot_bitmap_32(UINT32 *base, UINT16 row, UINT16 col, UINT16 height);
+void plot_bitmap_32(UINT32 *base, UINT16 row, UINT16 col, UINT16 height) {
+    UINT16 r, c;
+    
+    for (r = 0; r < height; r++) {
+        for (c = 0; c < 32; c++) {
+            if (base[r] & (0x8000000 >> c)) {
+                plot_pixel((UINT8 *)base, row + r, col +c);
+            }
+        }
+    }
+}
 
 
 /*----- Function: plot_character -----
