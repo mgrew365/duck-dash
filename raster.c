@@ -94,8 +94,9 @@ void plot_vertical_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length);
 
  OUTPUT: None
 */
-void plot_line(UINT32 *base, UINT16 start_row, UINT16 start_col, UINT16 end_row, UINT16 end_col);
-
+void plot_line(UINT32 *base, UINT16 start_row, UINT16 start_col, UINT16 end_row, UINT16 end_col) {
+    /* idek*/
+}
 
 /*----- Function: plot_rectangle -----
 
@@ -121,8 +122,13 @@ void plot_rectangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 
 
  OUTPUT: None
 */
-void plot_square(UINT32 *base, UINT16 row, UINT16 col, UINT16 side);
-
+void plot_square(UINT32 *base, UINT16 row, UINT16 col, UINT16 side) {
+    /* 
+    A square is a type of rectangle with the height = width
+    So we can use plot_rectangle by using the same value (side) for length and width
+    */
+    plot_rectangle(base, row, col, side, side)
+}
 
 /*----- Function: plot_triangle -----
 
