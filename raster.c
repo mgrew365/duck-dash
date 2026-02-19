@@ -95,8 +95,72 @@ void plot_vertical_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length);
  OUTPUT: None
 */
 void plot_line(UINT32 *base, UINT16 start_row, UINT16 start_col, UINT16 end_row, UINT16 end_col) {
-    /* idek*/
+    INT16 del_r = end_row - start_row;
+    INT16 del_c = end_col - start_col;
+    INT16 r, c;
+    INT16 step_r, step_c;
+
+    /* For horizontal line*/
+    if (del_r == 0) {
+        if (del_c < 0) {
+            start_col = end_col;
+            del_c = -del_c;
+        }
+    
+        for (c = 0; c <= del_c; c++) {
+            plot_pixel((UINT8 *)base, start_row, start_col + c);
+        }
+
+        return;
+    }
+
+    /* For vertical line*/
+    if (del_c == 0) {
+        if (del_r < 0) {
+            start_row = end_row;
+            del_r = -del_r;
+        }
+
+        for (r = 0; r <= del_r; r++) {
+            plot_pixel((UINT8 *)base, start_row + r, start_col);
+        }
+
+        return;
+    }
+
+    /* For a diagonal line */
+    if (del_r < 0) {
+        del_r = -del_r;
+    }
+
+    if (del_c < 0) {
+        del_c = -del_c;
+    }
+
+    if (del_r == del_c) {
+        if (start_row < end_row) {
+            step_r = 1;
+        }
+        else {
+            step_r = -1;
+        }
+
+        if (start_col < end_col) {
+            step_c = 1;
+        }
+        else {
+            step_c = -1;
+        }
+
+        for (r = 0; r <= del_r; r++) {
+            plot_pixel((UINT8 *)base, start_row, start_col);
+            start_row += step_r;
+            start_col += step_c;
+        }
+
+    }
 }
+
 
 /*----- Function: plot_rectangle -----
 
