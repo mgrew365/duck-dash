@@ -77,7 +77,7 @@ void plot_horizontal_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length) {
     UINT16 i;
 
     for (i = 0; i < length; i++) {
-        plot_pixel((UINT8 *)base, row, col + i)
+        plot_pixel((UINT8 *)base, row, col + i);
     }
 }
 
@@ -196,7 +196,7 @@ void plot_line(UINT32 *base, UINT16 start_row, UINT16 start_col, UINT16 end_row,
 
  OUTPUT: None
 */
-void plot_rectangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 width);
+void plot_rectangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 width)
 {
     UINT16 i;
     UINT32 *draw;
@@ -210,9 +210,9 @@ void plot_rectangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 
     for (i = 0; i < length; i++)
     {
         draw = base + ((row + i) * 20);
-        plot_horizontal_line(draw, col, width);
+        plot_horizontal_line(base, row + i, col, width);
     }
-};
+}
 
 /*----- Function: plot_square -----
 
@@ -229,7 +229,7 @@ void plot_square(UINT32 *base, UINT16 row, UINT16 col, UINT16 side) {
     A square is a type of rectangle with the height = width
     So we can use plot_rectangle by using the same value (side) for length and width
     */
-    plot_rectangle(base, row, col, side, side)
+    plot_rectangle(base, row, col, side, side);
 }
 
 /*----- Function: plot_triangle -----
@@ -248,7 +248,54 @@ void plot_square(UINT32 *base, UINT16 row, UINT16 col, UINT16 side) {
 
  OUTPUT: None
 */
-void plot_triangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 base, UINT16 height, UINT8 direction);
+void plot_triangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 base, UINT16 height, UINT8 direction)
+{
+    UINT16 i;
+    UINT16 width;
+    UINT16 draw_row;
+    UINT16 start_col;
+
+    if (height == 0 || base == 0)
+        return;
+
+    for (i = 0; i < height; i++)
+    {
+        /* width grows as we go down */
+        width = (base * (i + 1)) / height;
+
+        switch (direction)
+        {
+            /* top-left right angle */
+            case 0:
+                draw_row = row + i;
+                start_col = col;
+                break;
+
+            /* top-right right angle */
+            case 1:
+                draw_row = row + i;
+                start_col = col - width + 1;
+                break;
+
+            /* bottom-left right angle */
+            case 2:
+                draw_row = row - i;
+                start_col = col;
+                break;
+
+            /* bottom-right right angle */
+            case 3:
+                draw_row = row - i;
+                start_col = col - width + 1;
+                break;
+
+            default:
+                return;
+        }
+
+        plot_horizontal_line(base, draw_row, start_col, width);
+    }
+}
 
 
 /*----- Function: plot_bitmap_8 -----
@@ -285,7 +332,7 @@ void plot_bitmap_8(UINT8 *base, UINT16 row, UINT16 col, UINT16 height) {
  OUTPUT: None
 */
 void plot_bitmap_16(UINT16 *base, UINT16 row, UINT16 col, UINT16 height) {
-    UINT16 data, r, c;
+    UINT16 r, data[r], c;
 
     for (r = 0; r < height; r++)
     {
@@ -333,7 +380,7 @@ void plot_bitmap_32(UINT32 *base, UINT16 row, UINT16 col, UINT16 height) {
 
  OUTPUT: None
 */
-void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch);
+void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch)
 {
     UINT8 *font = (UINT8 *)V_FNT_AD;
     UINT16 r;
