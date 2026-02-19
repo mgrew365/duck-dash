@@ -14,6 +14,7 @@ File Description:
 typedef unsigned char  UINT8;
 typedef unsigned short UINT16;
 typedef unsigned long  UINT32;
+typedef short INT16;
 
 /*----- Function: clear_screen -----
 v
@@ -205,4 +206,5 @@ void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch);
 void plot_string(UINT8 *base, UINT16 row, UINT16 col, char *ch);
 
 #endif
+
 
