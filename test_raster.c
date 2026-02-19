@@ -1,6 +1,6 @@
-#include <osbind.h>
 #include "raster.h"
 #include "font.h"
+#include <osbind.h>
 #include <stdio.h>
 
 #define INVADER_HEIGHT 16
