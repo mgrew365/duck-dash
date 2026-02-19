@@ -38,7 +38,7 @@ void clear_region(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 wi
 
     for (r = 0; r < length; r++) {
         for (c = 0; c < width; c++) {
-            plot_pixel((UINT8 *)base, row + r, col + c);
+            plot_pixel((UINT16 *)base, row + r, col + c);
         }
     }
 }
@@ -74,7 +74,7 @@ void plot_horizontal_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length) {
     UINT16 i;
 
     for (i = 0; i < length; i++) {
-        plot_pixel((UINT8 *)base, row, col + i);
+        plot_pixel((UINT16 *)base, row, col + i);
     }
 }
 
@@ -128,7 +128,7 @@ void plot_line(UINT32 *base, UINT16 start_row, UINT16 start_col, UINT16 end_row,
         }
     
         for (c = 0; c <= del_c; c++) {
-            plot_pixel((UINT8 *)base, start_row, start_col + c);
+            plot_pixel((UINT16 *)base, start_row, start_col + c);
         }
 
         return;
@@ -142,7 +142,7 @@ void plot_line(UINT32 *base, UINT16 start_row, UINT16 start_col, UINT16 end_row,
         }
 
         for (r = 0; r <= del_r; r++) {
-            plot_pixel((UINT8 *)base, start_row + r, start_col);
+            plot_pixel((UINT16 *)base, start_row + r, start_col);
         }
 
         return;
@@ -173,7 +173,7 @@ void plot_line(UINT32 *base, UINT16 start_row, UINT16 start_col, UINT16 end_row,
         }
 
         for (r = 0; r <= del_r; r++) {
-            plot_pixel((UINT8 *)base, start_row, start_col);
+            plot_pixel((UINT16 *)base, start_row, start_col);
             start_row += step_r;
             start_col += step_c;
         }
@@ -311,7 +311,7 @@ void plot_bitmap_8(UINT8 *base, UINT16 row, UINT16 col, UINT16 height) {
     for (r = 0; r < height; r++) {
         for (c = 0; c < 8; c++) {
             if (base[r] & (0x80 >> c)) {
-                plot_pixel(base, row + r, col +c);
+                plot_pixel((UINT16 *)base, row + r, col +c);
             }
         }
     }
@@ -360,7 +360,7 @@ void plot_bitmap_32(UINT32 *base, UINT16 row, UINT16 col, UINT16 height) {
     for (r = 0; r < height; r++) {
         for (c = 0; c < 32; c++) {
             if (base[r] & (0x8000000 >> c)) {
-                plot_pixel((UINT8 *)base, row + r, col +c);
+                plot_pixel((UINT16 *)base, row + r, col +c);
             }
         }
     }
