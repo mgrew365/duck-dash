@@ -3,7 +3,7 @@ File: RASTER.H
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 2, 2026
+Date Modified: February 19, 2026
 File Description: 
 
 */
@@ -206,5 +206,6 @@ void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch);
 void plot_string(UINT8 *base, UINT16 row, UINT16 col, char *ch);
 
 #endif
+
 
 
