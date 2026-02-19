@@ -1,5 +1,6 @@
-#ifndef RASTER_H
-#define RASTER_H
+#include "raster.h"
+/* #ifndef RASTER_H
+#define RASTER_H */
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 400
 #define BYTES_PER_ROW (SCREEN_WIDTH / 8)
@@ -12,7 +13,14 @@ v
  OUTPUT: None
 
 */
-void clear_screen(UINT32 *base);
+void clear_screen(UINT32 *base) {
+    register int i = 0;
+    register UINT32 *location = (UINT32 *)base;
+
+    while (i++ < BYTES_PER_ROW / 4) {
+        *(location++) = 0x00000000;
+    }
+}
 
 /*----- Function: clear_region -----
 
@@ -35,20 +43,22 @@ void clear_region(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 wi
             plot_pixel((UINT8 *)base, row + r, col + c);
         }
     }
-}
+};
 
 /*----- Function: plot_pixel -----
 
  PURPOSE: Plots a single pixel on the screen.
 
- INPUT: Address(UINT32*): to the start of the screen
-        Position(row,col): the location of the pixel to plot
+ INPUT: Base pointer to FB
 
  OUTPUT: None
 
 */
 
-void plot_pixel(UINT8 *base, UINT16 row, UINT16 col);
+void plot_pixel(UINT16 *base, int x, int y) {
+    if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
+    *(base + y * 40 + (x >> 4)) |= 1 << 15 - (x & 15);
+};
 
 
 /*----- Function: plot_horizontal_line -----
