@@ -91,7 +91,20 @@ void plot_horizontal_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length) {
 
  OUTPUT: None
 */
-void plot_vertical_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length);
+void plot_vertical_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length) {
+    UINT16 i;
+
+    if (col < SCREEN_WIDTH && row < SCREEN_HEIGHT && row + length <= SCREEN_HEIGHT)
+    {
+        UINT32 *loc = base + (row * 20) + (col >> 5);
+        for (i = 0; i < length; i++)
+        {
+            *loc |= (UINT32)1 << (31 - (col & 31));
+            loc += 20;
+        }
+    }
+
+}*
 
 
 /*----- Function: plot_line -----
