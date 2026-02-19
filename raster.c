@@ -101,7 +101,7 @@ void plot_vertical_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length) {
         }
     }
 
-}*
+}
 
 
 /*----- Function: plot_line -----
