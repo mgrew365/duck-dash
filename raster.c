@@ -297,7 +297,7 @@ void plot_bitmap_16(UINT16 *base, UINT16 row, UINT16 col, UINT16 height) {
             }
         }
     }
-};
+}
 
 
 /*----- Function: plot_bitmap_32 -----
@@ -334,7 +334,26 @@ void plot_bitmap_32(UINT32 *base, UINT16 row, UINT16 col, UINT16 height) {
  OUTPUT: None
 */
 void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch);
+{
+    UINT8 *font = (UINT8 *)V_FNT_AD;
+    UINT16 r;
+    UINT16 byte_offset;
+    UINT16 shift;
 
+    /* starting byte in framebuffer */
+    byte_offset = (row * 80) + (col >> 3);
+
+    /* bit shift inside byte */
+    shift = col & 7;
+
+    for (r = 0; r < 16; r++)
+    {
+        UINT8 bits = font[(ch * 16) + r];
+
+        base[byte_offset + r * 80]     |= bits >> shift;
+        base[byte_offset + r * 80 + 1] |= bits << (8 - shift);
+    }
+}
 
 /*----- Function: plot_string -----
 
