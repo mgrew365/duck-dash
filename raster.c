@@ -1,6 +1,4 @@
 #include "raster.h"
-/* #ifndef RASTER_H
-#define RASTER_H */
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 400
 #define BYTES_PER_ROW (SCREEN_WIDTH / 8)
@@ -43,7 +41,7 @@ void clear_region(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 wi
             plot_pixel((UINT8 *)base, row + r, col + c);
         }
     }
-};
+}
 
 /*----- Function: plot_pixel -----
 
@@ -58,7 +56,7 @@ void clear_region(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 wi
 void plot_pixel(UINT16 *base, int x, int y) {
     if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
     *(base + y * 40 + (x >> 4)) |= 1 << 15 - (x & 15);
-};
+}
 
 
 /*----- Function: plot_horizontal_line -----
@@ -419,4 +417,3 @@ void plot_string(UINT8 *base, UINT16 row, UINT16 col, char *ch) {
         col += 8;
     }
 }
-#endif
