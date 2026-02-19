@@ -57,11 +57,6 @@ void plot_pixel(UINT16 *base, UINT16 row, UINT16 col){
         *(base + row * 40 + (col >> 4)) |= (1 << (15 - (col & 15)));
 }
 
-void plot_pixel(UINT16 *base, int x, int y) {
-    if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
-    *(base + y * 40 + (x >> 4)) |= 1 << 15 - (x & 15);
-};
-
 
 /*----- Function: plot_horizontal_line -----
 
