@@ -115,10 +115,15 @@ void plot_vertical_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length) {
  OUTPUT: None
 */
 void plot_line(UINT32 *base, UINT16 start_row, UINT16 start_col, UINT16 end_row, UINT16 end_col) {
-    INT16 del_r = end_row - start_row;
-    INT16 del_c = end_col - start_col;
-    INT16 r, c;
-    INT16 step_r, step_c;
+    INT16 del_r;
+    INT16 del_c;
+    INT16 r;
+    INT16 c;
+    INT16 step_r;
+    INT16 step_c;
+
+    del_r = end_row - start_row;
+    del_c = end_col - start_col;
 
     /* For horizontal line*/
     if (del_r == 0) {
