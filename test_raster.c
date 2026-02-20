@@ -75,7 +75,7 @@ int main() {
 
     /* plot_triangle */
     clear_screen((UINT32 *)base);
-    plot_triangle((UINT32 *)base, 250, 200, 60, 40, 0);
+    plot_triangle((UINT32 *)base, 250, 200, 60, 40, 0);    
     wait_key();
 
     /* 16-bit bitmap of a duck */
