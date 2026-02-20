@@ -28,11 +28,6 @@ void move_buildings(Building buildings[], int count) {
 
 }
 
-/* Initialize the model to default game state */
-void init_model(Model *model) {
-
-}
-
 /* Increment score */
 void increment_score(Model *model) {
     model->score++;
