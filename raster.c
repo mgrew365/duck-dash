@@ -1,4 +1,5 @@
 #include "raster.h"
+#include "font.h"
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 400
 #define BYTES_PER_ROW (SCREEN_WIDTH / 8)
@@ -381,27 +382,6 @@ void plot_bitmap_32(UINT32 *base, UINT16 row, UINT16 col, UINT16 height) {
         ch(char): the character to be written to the screen
 
  OUTPUT: None
-*/
-/* Commenting out to test
-void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch)
-{
-    UINT8 *font = (UINT8 *)V_FNT_AD;
-    UINT16 r;
-    UINT16 byte_offset;
-    UINT16 shift;
-
-    byte_offset = (row * 80) + (col >> 3);
-
-    shift = col & 7;
-
-    for (r = 0; r < 16; r++)
-    {
-        UINT8 bits = font[(ch * 16) + r];
-
-        base[byte_offset + r * 80]     |= bits >> shift;
-        base[byte_offset + r * 80 + 1] |= bits << (8 - shift);
-    }
-}
 */
 void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch)
 {
