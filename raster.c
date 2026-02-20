@@ -382,6 +382,7 @@ void plot_bitmap_32(UINT32 *base, UINT16 row, UINT16 col, UINT16 height) {
 
  OUTPUT: None
 */
+/* Commenting out to test
 void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch)
 {
     UINT8 *font = (UINT8 *)V_FNT_AD;
@@ -389,10 +390,8 @@ void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch)
     UINT16 byte_offset;
     UINT16 shift;
 
-    /* starting byte in framebuffer */
     byte_offset = (row * 80) + (col >> 3);
 
-    /* bit shift inside byte */
     shift = col & 7;
 
     for (r = 0; r < 16; r++)
@@ -401,6 +400,17 @@ void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch)
 
         base[byte_offset + r * 80]     |= bits >> shift;
         base[byte_offset + r * 80 + 1] |= bits << (8 - shift);
+    }
+}
+*/
+void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch)
+{
+    UINT16 i;
+    UINT8 *glyph = (UINT8 *)GLYPH_START(ch);
+
+    for (i = 0; i < 8; i++, glyph++)
+    {
+        *(base + (row + i) * 80 + (col >> 3)) |= *glyph;
     }
 }
 
