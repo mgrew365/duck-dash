@@ -16,7 +16,7 @@ void clear_screen(UINT32 *base) {
     register int i = 0;
     register UINT32 *location = (UINT32 *)base;
 
-    while (i++ < BYTES_PER_ROW / 4) {
+    while (i++ < 320000 / 4) {
         *(location++) = 0x00000000;
     }
 }
@@ -251,20 +251,20 @@ void plot_square(UINT32 *base, UINT16 row, UINT16 col, UINT16 side) {
 
  OUTPUT: None
 */
-void plot_triangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 base_len, UINT16 height, UINT8 direction)
+void plot_triangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 base, UINT16 height, UINT8 direction)
 {
     UINT16 i;
     UINT16 width;
     UINT16 draw_row;
     UINT16 start_col;
 
-    if (height == 0 || base_len == 0)
+    if (height == 0 || base == 0)
         return;
 
     for (i = 0; i < height; i++)
     {
         /* width grows as we go down */
-        width = (base_len * (i + 1)) / height;
+        width = (base * (i + 1)) / height;
 
         switch (direction)
         {
@@ -341,7 +341,7 @@ void plot_bitmap_16(UINT16 *base, UINT16 row, UINT16 col, UINT16 height) {
     {
         for (c = 0; c < 16; c++)
         {
-            if (base[r] & (0x8000 >> c))
+            if (base[r] & (0x80000000 >> c))
             {
                 plot_pixel((UINT8 *)base, row + r, col + c);
             }
