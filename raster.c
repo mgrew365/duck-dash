@@ -335,13 +335,13 @@ void plot_bitmap_8(UINT8 *base, UINT16 row, UINT16 col, UINT16 height) {
  OUTPUT: None
 */
 void plot_bitmap_16(UINT16 *base, UINT16 row, UINT16 col, UINT16 height) {
-    UINT16 r, data[r], c;
+    UINT16 r, c;
 
     for (r = 0; r < height; r++)
     {
         for (c = 0; c < 16; c++)
         {
-            if (data[r] & (0x8000 >> c))
+            if (base[r] & (0x8000 >> c))
             {
                 plot_pixel((UINT8 *)base, row + r, col + c);
             }
