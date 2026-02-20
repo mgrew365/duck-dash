@@ -2,6 +2,7 @@
 #define FONT_H
 
 #include "types.h"
+#include "raster.h"
 
 extern const UINT8 font[];     /* 8x8 system font */
 
