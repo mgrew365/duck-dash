@@ -7,13 +7,10 @@ Date Modified: February 19, 2026
 File Description: 
 
 */
-
+#include "types.h"
 #ifndef RASTER_H
 #define RASTER_H
 
-typedef unsigned char  UINT8;
-typedef unsigned short UINT16;
-typedef unsigned long  UINT32;
 typedef short INT16;
 
 /*----- Function: clear_screen -----
