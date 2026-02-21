@@ -2,6 +2,7 @@
 
 #define TICKS_PER_SECOND 70
 
+/* Change below as need be */
 #define SPEED_UP_1 20
 #define SPEED_UP_2 40
 #define SPEED_UP_3 80
@@ -19,9 +20,7 @@ void speed_increase(Model *model, unsigned int elapsed_ticks) {
     unsigned int elapsed_seconds = elapsed_ticks / TICKS_PER_SECOND;
     unsigned int i;
 
-    if (elapsed_seconds == SPEED_UP_1 ||
-        elapsed_seconds == SPEED_UP_2 ||
-        elapsed_seconds == SPEED_UP_3)
+    if (elapsed_seconds == SPEED_UP_1 || elapsed_seconds == SPEED_UP_2 || elapsed_seconds == SPEED_UP_3)
     {
         for (i = 0; i < MAX_BUILDINGS; i++) {
             /* Increase speed by making delta_x more negative */
