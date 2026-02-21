@@ -1,6 +1,10 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#define SCREEN_WIDTH  640
+#define SCREEN_HEIGHT 400
+#define MAX_BUILDINGS  4
+
 #include "types.h"
 
 /* PROTOTYPES*/
@@ -8,24 +12,27 @@
 /* Duck Object*/
 typedef struct {
     unsigned int x, y;
-    int delta_y;
+    int delta_y;        /* Vertical displacement*/
 } Duck;
 
 /* Building Object */
 typedef struct {
     unsigned int x, y;
+    int delta_x;        /* Horizontal displacement*/
     unsigned int width;
     unsigned int height;
 } Building;
 
 /* Main Game Model */
-#define MAX_BUILDINGS 3 /* Maximum number of buildings on the screen (change as needed)*/
-
 typedef struct {
     Duck duck;
     Building buildings[MAX_BUILDINGS];
-    unisgned int score;
+    unsigned int score;
 } Model;
+
+
+extern Model testDuckDashSnapshot;
+
 
 /* STRUCTURES*/
 /* BITMAPS*/
@@ -37,9 +44,6 @@ void move_duck(Duck *duck);
 
 /* Move buildings left towards the duck*/
 void move_buildings(Building buildings[], int count);
-
-/* Increment score */
-void increment_score(Model *model);
 
 
 #endif
