@@ -4,31 +4,39 @@
 /* Leave extra space at the bottom of screen so duck doesnt land on edge of screen, lands on floor */
 #define FLOOR_BUFFER 40
 
-/* What is the actual size of the duck?*/
-#define DUCK_WIDTH 32
-#define DUCK_HEIGHT 32
+Model testDuckDashSnapshot = {
+    /* Duck */
+    {
+        40,     /* x */
+        180,    /* y */
+        0,      /* delta_x */
+        0       /* delta_y */
+    },
 
-/* Maybe we add a helper function to help detect collisions and call this function within move_duck*/
+    /* Buildings */
+    {
+        { 700, 360, 32, 32 },
+        { 860, 360, 32, 32 },
+        { 1020, 360, 32, 32 },
+        { 1180, 360, 32, 32 }
+    },
+
+    /* Score */
+    0
+};
 
 /* Ducks movement (jump/fall)*/
 void move_duck(Duck *duck) {
-    /* Ensure duck stays in the screen*/
-    if (duck->y < 0) {
-        duck->y = 0;
-    }
-
-    if (duck->y > 400 - FLOOR_BUFFER) {
-        duck->y = 400 - FLOOR_BUFFER;
-    }
-    
+    duck->x += duck->delta_x;
+    duck->y += duck->delta_y;
 }
 /* Move buildings left towards the duck*/
 /*idek how to start this*/
-void move_buildings(Building buildings[], int count) {
+void move_buildings(Building buildings[], unsigned int count) {
+    unsigned int i;
 
-}
-
-/* Increment score */
-void increment_score(Model *model) {
-    model->score++;
+    for (i = 0; i < count; i++) {
+        buildings[i].x += buildings[i].delta_x;
+        buildings[i].y += buildings[i].delta_y;
+    }
 }
