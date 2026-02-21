@@ -31,19 +31,16 @@ typedef struct {
 } Model;
 
 
-extern Model testDuckDashSnapshot;
-
-
 /* STRUCTURES*/
 /* BITMAPS*/
 extern const UINT16 duck[];
 extern const UINT16 building[];
+extern Model testDuckDashSnapshot;
 
 /* Ducks movement (jump/fall)*/
 void move_duck(Duck *duck);
 
 /* Move buildings left towards the duck*/
-void move_buildings(Building buildings[], int count);
-
+void move_buildings(Building buildings[], unsigned int count);
 
 #endif
