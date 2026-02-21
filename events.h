@@ -2,6 +2,7 @@
 #define EVENTS_h
 
 #include "model.h"
+#include <stdbool.h>
 
 /* Asynchronous Events */
 /* Duck Jump - triggered when up key is pressed */
