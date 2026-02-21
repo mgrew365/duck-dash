@@ -7,10 +7,10 @@ void duck_jump(Model *model) {
         model->duck.delta_y = -8;   /* jump strength (change as need be) */
     }
 }
+
 /* Quit game - triggered when ESC key is pressed 
    This function is not complete at the moment as we cant actually test this aspect yet
 */
-
 void quit_game(Model *model) {
     (void)model; 
 }
