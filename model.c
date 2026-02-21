@@ -9,7 +9,6 @@ Model testDuckDashSnapshot = {
     {
         40,     /* x */
         180,    /* y */
-        0,      /* delta_x */
         0       /* delta_y */
     },
 
@@ -27,7 +26,6 @@ Model testDuckDashSnapshot = {
 
 /* Ducks movement (jump/fall)*/
 void move_duck(Duck *duck) {
-    duck->x += duck->delta_x;
     duck->y += duck->delta_y;
 }
 /* Move buildings left towards the duck*/
@@ -37,6 +35,5 @@ void move_buildings(Building buildings[], unsigned int count) {
 
     for (i = 0; i < count; i++) {
         buildings[i].x += buildings[i].delta_x;
-        buildings[i].y += buildings[i].delta_y;
     }
 }
