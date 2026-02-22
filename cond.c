@@ -33,19 +33,19 @@ bool duck_building_collision(const Model *model) {
 
 
 /* Building collides with left border to be removed from the screen */
-bool building_left_corder_collision(const Model *model) {
+bool building_left_border(const Building *building) {
     return (building->x + building->width) <= 0;
 }
 
 
 /* Duck reaches its maximum jump height and starts to descend afterwords */
-bool duck_max_height(const Model *model) {
+bool duck_max_height(const Duck *duck) {
     return duck->y <= MAX_JUMP_Y;
 }
 
 
 /* Duck collides with ground stopping descent */
-bool duck_ground_collision(const Model *model) {
+bool duck_ground_collision(const Duck *duck) {
     return duck->y >= (SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT);
 }
 
