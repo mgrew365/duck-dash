@@ -28,7 +28,7 @@ void speed_increase(Model *model, unsigned int elapsed_ticks) {
         }
     }
 }
-  t
+  
 /* Score updates based on elapsed gameplay time */
 void update_score(Model *model, unsigned int elapsed_ticks) {
     model->score = elapsed_ticks / TICKS_PER_SECOND;
