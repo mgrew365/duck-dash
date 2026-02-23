@@ -1,3 +1,13 @@
+/*
+File: COND.H
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 2 - COMP 2659 
+Date Modified: February 21, 2026
+File Description: This header file declares all conditional game events for Duck Dash.
+                  The functions in this file are implemented in cond.c to check current game state.
+*/
+
 #ifndef COND_H
 #define COND_H
 
