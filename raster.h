@@ -3,8 +3,10 @@ File: RASTER.H
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 19, 2026
-File Description: 
+Date Modified: February 23, 2026
+File Description: This header file declares all raster modules.
+                  The functions in this file are implemented in raster.c.
+
 
 */
 #include "types.h"
@@ -37,7 +39,7 @@ void clear_screen(UINT32 *base);
  OUTPUT: None
 
 */
-void clear_region(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 width);
+void clear_region(UINT32 *base, int row, int col, UINT16 length, UINT16 width);
 
 
 /*----- Function: plot_pixel -----
@@ -50,7 +52,7 @@ void clear_region(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 wi
  OUTPUT: None
 
 */
-void plot_pixel(UINT8 *base, UINT16 row, UINT16 col);
+void plot_pixel(UINT8 *base, int row, int col);
 
 
 /*----- Function: plot_horizontal_line -----
@@ -63,7 +65,7 @@ void plot_pixel(UINT8 *base, UINT16 row, UINT16 col);
 
  OUTPUT: None
 */
-void plot_horizontal_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length);
+void plot_horizontal_line(UINT32 *base, int row, int col, UINT16 length);
 
 
 /*----- Function: plot_vertical_line -----
@@ -76,7 +78,7 @@ void plot_horizontal_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length);
 
  OUTPUT: None
 */
-void plot_vertical_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length);
+void plot_vertical_line(UINT32 *base, int row, int col, UINT16 length);
 
 
 /*----- Function: plot_line -----
@@ -89,7 +91,7 @@ void plot_vertical_line(UINT32 *base, UINT16 row, UINT16 col, UINT16 length);
 
  OUTPUT: None
 */
-void plot_line(UINT32 *base, UINT16 start_row, UINT16 start_col, UINT16 end_row, UINT16 end_col);
+void plot_line(UINT32 *base, int start_row, int start_col, int end_row, int end_col);
 
 
 /*----- Function: plot_rectangle -----
@@ -103,7 +105,7 @@ void plot_line(UINT32 *base, UINT16 start_row, UINT16 start_col, UINT16 end_row,
 
  OUTPUT: None
 */
-void plot_rectangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 width);
+void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width);
 
 
 /*----- Function: plot_square -----
@@ -116,7 +118,7 @@ void plot_rectangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 length, UINT16 
 
  OUTPUT: None
 */
-void plot_square(UINT32 *base, UINT16 row, UINT16 col, UINT16 side);
+void plot_square(UINT32 *base, int row, int col, UINT16 side);
 
 
 /*----- Function: plot_triangle -----
@@ -125,6 +127,7 @@ void plot_square(UINT32 *base, UINT16 row, UINT16 col, UINT16 side);
 
  INPUT: Address(UINT8*): to the start of the screen
         Position(row,col): the coordinates of the pixel of the 90° angle of the triangle
+        Base: the length (number of columns) of the base in pixels of the triangle
         Height: the lenth (number of rows) of the height in pixels of the triangle
         Direction: Describes where the coordinate is relative to the rest of the triangle
               0 - Coordinate is the top left point of the triangle
@@ -135,7 +138,7 @@ void plot_square(UINT32 *base, UINT16 row, UINT16 col, UINT16 side);
 
  OUTPUT: None
 */
-void plot_triangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 triangle_base, UINT16 height, UINT8 direction);
+void plot_triangle(UINT32 *base, int row, int col, UINT16 base, UINT16 height, UINT8 direction);
 
 
 /*----- Function: plot_bitmap_8 -----
@@ -148,7 +151,7 @@ void plot_triangle(UINT32 *base, UINT16 row, UINT16 col, UINT16 triangle_base, U
 
  OUTPUT: None
 */
-void plot_bitmap_8(UINT8 *base, UINT16 row, UINT16 col, UINT16 height);
+void plot_bitmap_8(UINT8 *base, int row, int col, UINT16 height);
 
 
 /*----- Function: plot_bitmap_16 -----
@@ -161,7 +164,7 @@ void plot_bitmap_8(UINT8 *base, UINT16 row, UINT16 col, UINT16 height);
 
  OUTPUT: None
 */
-void plot_bitmap_16(UINT16 *base, UINT16 row, UINT16 col, UINT16 height);
+void plot_bitmap_16(UINT16 *base, int row, int col, UINT16 height);
 
 
 /*----- Function: plot_bitmap_32 -----
@@ -174,7 +177,7 @@ void plot_bitmap_16(UINT16 *base, UINT16 row, UINT16 col, UINT16 height);
 
  OUTPUT: None
 */
-void plot_bitmap_32(UINT32 *base, UINT16 row, UINT16 col, UINT16 height);
+void plot_bitmap_32(UINT32 *base, int row, int col, UINT16 height);
 
 
 /*----- Function: plot_character -----
@@ -187,7 +190,7 @@ void plot_bitmap_32(UINT32 *base, UINT16 row, UINT16 col, UINT16 height);
 
  OUTPUT: None
 */
-void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch);
+void plot_character(UINT8 *base, int row, int col, char ch);
 
 
 /*----- Function: plot_string -----
@@ -200,9 +203,6 @@ void plot_character(UINT8 *base, UINT16 row, UINT16 col, char ch);
 
  OUTPUT: None
 */
-void plot_string(UINT8 *base, UINT16 row, UINT16 col, char *ch);
+void plot_string(UINT8 *base, int row, int col, char *ch);
 
 #endif
-
-
-
