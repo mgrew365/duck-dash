@@ -11,7 +11,6 @@ File Description: This module defines asynchronous game events for Duck Dash whi
                   The asynchronous events include:
                      - The duck jump
                      - Quit game
-
 */
 
 #include "asynch.h"
@@ -24,9 +23,7 @@ void duck_jump(Model *model) {
     }
 }
 
-/* Quit game - triggered when ESC key is pressed 
-   This function is not complete at the moment as we cant actually test this aspect yet
-*/
+/* Quit game - triggered when ESC key is pressed */
 void quit_game(Model *model) {
     (void)model; 
 }
