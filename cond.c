@@ -1,14 +1,38 @@
+/*
+File: COND.C
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 2 - COMP 2659 
+Date Modified: February 21, 2026
+File Description: This file implements all conditional game event functions for Duck Dash. These events are used
+                  to check the current game state hence they are boolean values to indicate whether a condition is met.
+
+                  The conditional events include:
+                    - Duck colliding with building
+                    - Duck reaching its maximum jump height
+                    - Duck colliding with ground
+                    - Buildings leaving the screen
+                    - Game restart conditions
+
+*/
+
 #include "cond.h"
 #define SCREEN_WIDTH   640
 #define SCREEN_HEIGHT  400
-
-/* Change below as need be*/
 #define FLOOR_BUFFER   40      /* duck stands on floor above bottom */
 #define DUCK_WIDTH    16
 #define DUCK_HEIGHT   16
 #define MAX_JUMP_Y    80 
 
-/* Duck collides with building resulting in game over */
+
+/* ----- Function: duck_building_collision -----
+
+Purpose: This function checks if the duck has colliding with the building. If the output is true, game over. 
+
+Input: Model *model: A pointer to the game's current model
+
+Output: boolean value: true if collision occurs, else false
+*/
 bool duck_building_collision(const Model *model) {
     unsigned int i;
 
@@ -31,26 +55,51 @@ bool duck_building_collision(const Model *model) {
     return false;
 }
 
+/* ----- Function: building_left_border -----
 
-/* Building collides with left border to be removed from the screen */
+Purpose: This function checks if the building has collided with the left border of the screen to then be removed from the screen
+         if the output is true.
+
+Input: Building *building: A pointer to the Building object
+
+Output: boolean value: true if building is of the screen, else false
+*/
 bool building_left_border(const Building *building) {
     return (building->x + building->width) <= 0;
 }
 
+/* ----- Function: duck_max_height -----
 
-/* Duck reaches its maximum jump height and starts to descend afterwords */
+Purpose: This function checks if the duck has reached its maximum jump height for it then to descend.
+
+Input: Duck *duck: pointer to Duck object 
+
+Output: boolean value: true if duck has reached the maximum jump height, else false
+*/
 bool duck_max_height(const Duck *duck) {
     return duck->y <= MAX_JUMP_Y;
 }
 
+/* ----- Function: duck_ground_collision -----
 
-/* Duck collides with ground stopping descent */
+Purpose: This function checks if the duck has collided with the ground.
+
+Input: Duck *duck: pointer to Duck object
+
+Output: boolean value: true if duck has hit the ground, else false
+*/
 bool duck_ground_collision(const Duck *duck) {
     return duck->y >= (SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT);
 }
 
+/* ----- Function: restart_game -----
 
-/* Restart game when gameplay has ended */
+Purpose: This function determines if a game should be restarted.
+
+Input: Model *model: A pointer to current game model
+
+Output: boolean value: The restart_game logic hasn't been fully implemented yet, so false at the current moment
+*/
 bool restart_game(const Model *model) {
     (void)model;
 
