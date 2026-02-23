@@ -1,3 +1,19 @@
+/*
+File: ASYNCH.C
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 2 - COMP 2659 
+Date Modified: February 22, 2026
+File Description: This module defines asynchronous game events for Duck Dash which these events
+                  are the outcome of user input. For example, when a key is pressed,game state is modified
+                  which is independent of the game clock
+
+                  The asynchronous events include:
+                     - The duck jump
+                     - Quit game
+
+*/
+
 #include "asynch.h"
 
 /* Duck Jump - triggered when up key is pressed */
