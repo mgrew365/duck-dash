@@ -3,8 +3,9 @@ File: RENDERER.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 21, 2026
-File Description: 
+Date Modified: February 23, 2026
+File Description: Contains the implementation of rendering functions for all the game
+play objects. Each of the functions draws a specfic object using the raster graphics.
 
 */
 
@@ -15,7 +16,13 @@ File Description:
 #define BUILDING_HEIGHT 32
 
 
-/* main renderer function */
+/*
+Function: render
+Purpose: draws the complete frame by cearing the screen and rendering all objects.
+Input: Model pointer: current state of the game play.
+       Address(UINT8*): start address of the frame buffer.
+Output: None/No direct output
+*/
 void render(const Model *model, UINT8 *base)
 {
     unsigned int i;
@@ -31,7 +38,13 @@ void render(const Model *model, UINT8 *base)
 }
 
 
-/* RENDER DUCK */
+/*
+Function: render_duck
+Purpose: plots the duck bitmap at the corrdinates of the model.
+Input: Duck pointer: duck object
+       Address(UINT8*): start address of the frame buffer.
+Output: None/No direct output
+*/
 void render_duck(const Duck *duck, UINT8 *base)
 {
     plot_bitmap_16(
@@ -43,7 +56,13 @@ void render_duck(const Duck *duck, UINT8 *base)
 }
 
 
-/* RENDER BUILDING */
+/*
+Function: render_building
+Purpose: Plots the building bitmap at the model coordinates.
+Input: Building pointer: building object
+       Address(UINT8*): start address of the frame buffer.
+Output: None/No direct output
+*/
 void render_building(const Building *b, UINT8 *base)
 {
     plot_bitmap_32(
@@ -55,7 +74,13 @@ void render_building(const Building *b, UINT8 *base)
 }
 
 
-/* RENDER SCORE TEXT */
+/*
+Function: render_score
+Purpose: converts the score values to characters and plots the text. (only positive integer values)
+Input: Score(unsigned int): the value to be displayed
+       Address(UINT8*): start address of the frame buffer.
+Output: None/No direct output
+*/
 void render_score(unsigned int score, UINT8 *base)
 {
     char text[12];
