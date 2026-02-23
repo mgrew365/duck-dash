@@ -33,6 +33,7 @@ void wait_key(void) {
 
 
 int main() {
+
     int r, c;
     void *base = Physbase();
 
@@ -42,10 +43,12 @@ int main() {
     */
 
     /* clear_screen */
+
     clear_screen((UINT32 *)base);
     wait_key();
 
     /* plot_pixel*/
+  
     clear_screen((UINT32 *)base);
     plot_pixel((UINT8 *)base, 0, 0);
     plot_pixel((UINT8 *)base, 0, SCREEN_WIDTH - 1);
@@ -53,20 +56,24 @@ int main() {
     plot_pixel((UINT8 *)base, SCREEN_HEIGHT - 1, SCREEN_WIDTH - 1);
     wait_key();
     
-    
     /* plot_horizontal_line and vertical_line*/
+
     clear_screen((UINT32 *)base);
     plot_horizontal_line((UINT32 *)base, 50, 50, 200);
+    
+    /*issue may be with vertical_line*/
     plot_vertical_line((UINT32 *)base, 50, 50, 150);
     wait_key();
-    
+
     /* plot_line (generic line)*/
+
     clear_screen((UINT32 *)base);
     plot_line((UINT32 *)base, 10, 10, 300, 300);
     plot_line((UINT32 *)base, 300, 10, 10, 300);
     wait_key();
-    
+
     /* plot_rectangle and plot_square */
+
     clear_screen((UINT32 *)base);
     plot_rectangle((UINT32 *)base, 100, 100, 200, 100);
     plot_square((UINT32 *)base, 350, 100, 80);
@@ -74,11 +81,13 @@ int main() {
 
 
     /* plot_triangle */
+
     clear_screen((UINT32 *)base);
     plot_triangle((UINT32 *)base, 250, 200, 60, 40, 0);    
     wait_key();
 
     /* 16-bit bitmap of a duck */
+
     clear_screen((UINT32 *)base);
     for (r = 0; r < INVADER_HEIGHT; r++) {
         for (c = 0; c < 16; c++) {
@@ -89,16 +98,17 @@ int main() {
     }
     wait_key();
 
-    /* plot_charachter */
+    /* plot_character */
     clear_screen((UINT32 *)base);
-    plot_character((UINT8 *)base, 'A', 100, 100);
+    plot_character((UINT8 *)base, 100, 100, 'A');
     wait_key();
 
-
     /* plot_string (display SCORE on top right)*/
+
     plot_string((UINT8 *)base, 10, SCREEN_WIDTH - (5 * 8) - 10, "SCORE");
     wait_key();
     
     clear_screen((UINT32 *)base);
     return 0;
+
 }
