@@ -138,7 +138,7 @@ void plot_square(UINT32 *base, int row, int col, UINT16 side);
 
  OUTPUT: None
 */
-void plot_triangle(UINT32 *base, int row, int col, UINT16 base, UINT16 height, UINT8 direction);
+void plot_triangle(UINT32 *base, int row, int col, UINT16 triangle_base, UINT16 height, UINT8 direction);
 
 
 /*----- Function: plot_bitmap_8 -----
