@@ -3,8 +3,9 @@ File: TEST_RENDER.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 21, 2026
-File Description: 
+Date Modified: February 23, 2026
+File Description: The test driver used to verify renderer.c. Renders multiple
+model states and waits for user input between the frames to be able to visually inspect.
 
 */
 
@@ -16,12 +17,20 @@ File Description:
 
 #define BASE ((UINT8*)Physbase())
 
+/*
+Function: wait_key
+Purpose: pauses the program execution until user inputs a key
+*/
 void wait_key()
 {
     Cnecin();
 }
 
-
+ /*
+Function: print_model
+Purpose: prints all the model object values
+Input: model pointer: model to the display
+*/
 void print_model(const Model *m)
 {
     printf("Duck: (%u,%u)\n", m->duck.x, m->duck.y);
@@ -33,7 +42,10 @@ void print_model(const Model *m)
                m->buildings[i].y);
 }
 
-
+/*
+Function: test_initial
+Purpose: test rendering of the inital model state.
+*/
 void test_initial()
 {
     Model m = model_create_initial();
@@ -43,7 +55,10 @@ void test_initial()
     wait_key();
 }
 
-
+/*
+Function: test_move_duck
+Purpose: test rendering when the position of the duck moves
+*/
 void test_move_duck()
 {
     Model m = model_create_initial();
@@ -56,7 +71,10 @@ void test_move_duck()
     wait_key();
 }
 
-
+/*
+Function: test_buildings
+Purpose: test rendering when the position of the buildings moves
+*/
 void test_buildings()
 {
     Model m = model_create_initial();
@@ -69,7 +87,10 @@ void test_buildings()
     wait_key();
 }
 
-
+/*
+Function: test_score
+Purpose: test rendering of score text
+*/
 void test_score()
 {
     Model m = model_create_initial();
@@ -81,7 +102,10 @@ void test_score()
     wait_key();
 }
 
-
+/*
+Function: Main
+Purpose: Runs all the rendering test in sequence.
+*/
 int main()
 {
     printf("Test Start\n");
