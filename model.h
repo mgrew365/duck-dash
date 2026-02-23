@@ -43,4 +43,7 @@ void move_duck(Duck *duck);
 /* Move buildings left towards the duck*/
 void move_buildings(Building buildings[], unsigned int count);
 
+/* main model*/
+Model model_create_initial();
+
 #endif

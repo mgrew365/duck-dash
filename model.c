@@ -29,11 +29,15 @@ void move_duck(Duck *duck) {
     duck->y += duck->delta_y;
 }
 /* Move buildings left towards the duck*/
-/*idek how to start this*/
 void move_buildings(Building buildings[], unsigned int count) {
     unsigned int i;
 
     for (i = 0; i < count; i++) {
         buildings[i].x += buildings[i].delta_x;
     }
+}
+
+Model model_create_initial()
+{
+    return testDuckDashSnapshot;
 }
