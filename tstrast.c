@@ -68,8 +68,10 @@ int main() {
     /* plot_line (generic line)*/
 
     clear_screen((UINT32 *)base);
-    plot_line((UINT32 *)base, 10, 10, 300, 300);
-    plot_line((UINT32 *)base, 300, 10, 10, 300);
+    plot_line(base, 10, 10, 200, 10);    /* horizontal */
+    plot_line(base, 10, 10, 10, 200);    /* vertical */
+    plot_line(base, 10, 10, 200, 200);   /* diagonal */
+    plot_line(base, 200, 10, 10, 200);   /* diagonal */
     wait_key();
 
     /* plot_rectangle and plot_square */
