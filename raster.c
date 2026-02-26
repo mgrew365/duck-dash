@@ -119,7 +119,79 @@ void plot_vertical_line(UINT32 *base, int row, int col, UINT16 length) {
 
 }
 
+/*----- Function: plot_horizontal_segment -----
 
+ PURPOSE: A  helper function for plot_line. Draws a horizontal line on the screen with a specified length.
+
+ INPUT: base (UINT32*): address of the framebuffer
+        row (int): row of the starting pixel
+        col (int): column of starting pixel
+        length (int): length of the line segment in pixels
+
+ OUTPUT: None
+*/
+static void plot_horizontal_segment(UINT32 *base, int row, int col, int length) {
+    int i;
+    for (i = 0; i <= length; i++)
+        plot_pixel((UINT8 *)base, row, col + i);
+}
+
+
+/*----- Function: plot_vertical_segment -----
+
+ PURPOSE: A  helper function for plot_line. Draws a vertical line on the screen with a specified length.
+          It uses unit row and column steps.
+
+ INPUT: base (UINT32*): address of the framebuffer
+        row (int): row of the starting pixel
+        col (int): column of starting pixel
+        length (int): length of the line segment in pixels
+
+ OUTPUT: None
+*/
+static void plot_vertical_segment(UINT32 *base, int row, int col, int length)
+{
+    int i;
+    for (i = 0; i <= length; i++)
+        plot_pixel((UINT8 *)base, row + i, col);
+}
+
+
+/*----- Function: plot_diagonal_segment -----
+
+ PURPOSE: A  helper function for plot_line. Draws a 45 degree diagonal line line on the screen with a specified length.
+
+ INPUT: base (UINT32*): address of the framebuffer
+        row (int): starting row of the line 
+        col (int): starting column of the line 
+        steps (int): Number of pixels that must be drawn
+        step_r (int): row direction (either +1 or -1)
+        step_c (int): column direction (either +1 or -1)
+
+ OUTPUT: None
+*/
+static void plot_diagonal_segment(UINT32 *base, int row, int col, int steps, int step_r, int step_c)
+{
+    int i;
+    for (i = 0; i <= steps; i++) {
+        plot_pixel((UINT8 *)base, row, col);
+        row += step_r;
+        col += step_c;
+    }
+}
+
+/*----- Function: abs  -----
+
+ PURPOSE: This helper function commutes the absolute value of an integer.
+
+ INPUT: x (int): integer value
+
+ OUTPUT: int: absolute value of x
+*/
+static int abs(int x)
+{
+    return (x < 0) ? -x : x;
+}
 /*----- Function: plot_line -----
 
  PURPOSE: Plots a line on the screen between the two given points.
@@ -129,81 +201,33 @@ void plot_vertical_line(UINT32 *base, int row, int col, UINT16 length) {
         Position(end_row,end_col): the coordinates of the end of the line
 
  OUTPUT: None
-
- make new functions so less than 30 lines
  */
 void plot_line(UINT32 *base, int start_row, int start_col, int end_row, int end_col) {
-    INT16 del_r;
-    INT16 del_c;
-    INT16 r;
-    INT16 c;
-    INT16 step_r;
-    INT16 step_c;
+    int del_r = end_row - start_row;
+    int del_c = end_col - start_col;
 
-    del_r = end_row - start_row;
-    del_c = end_col - start_col;
-
-    /* For horizontal line*/
     if (del_r == 0) {
-        if (del_c < 0) {
-            start_col = end_col;
-            del_c = -del_c;
-        }
-    
-        for (c = 0; c <= del_c; c++) {
-            plot_pixel((UINT8 *)base, start_row, start_col + c);
-        }
-
+        if (del_c < 0) { start_col = end_col; del_c = -del_c; }
+        plot_horizontal_segment(base, start_row, start_col, del_c);
         return;
     }
 
-    /* For vertical line*/
     if (del_c == 0) {
-        if (del_r < 0) {
-            start_row = end_row;
-            del_r = -del_r;
-        }
-
-        for (r = 0; r <= del_r; r++) {
-            plot_pixel((UINT8 *)base, start_row + r, start_col);
-        }
-
+        if (del_r < 0) { start_row = end_row; del_r = -del_r; }
+        plot_vertical_segment(base, start_row, start_col, del_r);
         return;
     }
 
-    /* For a diagonal line */
-    if (del_r < 0) {
-        del_r = -del_r;
-    }
-
-    if (del_c < 0) {
-        del_c = -del_c;
-    }
-
-    if (del_r == del_c) {
-        if (start_row < end_row) {
-            step_r = 1;
-        }
-        else {
-            step_r = -1;
-        }
-
-        if (start_col < end_col) {
-            step_c = 1;
-        }
-        else {
-            step_c = -1;
-        }
-
-        for (r = 0; r <= del_r; r++) {
-            plot_pixel((UINT8 *)base, start_row, start_col);
-            start_row += step_r;
-            start_col += step_c;
-        }
-
+    if (abs(del_r) == abs(del_c)) {
+        plot_diagonal_segment(
+            base,
+            start_row, start_col,
+            abs(del_r),
+            (del_r > 0) ? 1 : -1,
+            (del_c > 0) ? 1 : -1
+        );
     }
 }
-
 
 /*----- Function: plot_rectangle -----
 
