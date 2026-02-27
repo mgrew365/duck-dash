@@ -24,13 +24,6 @@ v
 
 */
 void clear_screen(UINT32 *base) {
-        /*
-    register int i = 0;
-    register UINT32 *location = (UINT32 *)base;
-
-    while (i++ < 320000 / 4) {
-        *(location++) = 0x00000000;
-    }*/
     int i;
     for (i = 0; i < 400 * 20; i++)
         base[i] = 0;
