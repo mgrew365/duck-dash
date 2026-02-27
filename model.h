@@ -1,3 +1,16 @@
+/*
+File: MODEL.H
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 2 - COMP 2659 
+Date Modified: February 21, 2026
+File Description: This file defines the main data structures and function prototypes for the Duck
+                  Dash game model. It includes definitions for Duck and Building objects, the main Model
+                  structure containing the duck, buildings and score, and prototypes for functions that
+                  change the game model. These prototypes incldue move_duck, move_buildings, and 
+                  model_create_initial. This header declares buidling graphics and a test snapshot for the
+                  initial game state. The functions in this file are implemented in model.c
+*/
 #ifndef MODEL_H
 #define MODEL_H
 
@@ -30,20 +43,43 @@ typedef struct {
     unsigned int score;
 } Model;
 
-
-/* STRUCTURES*/
 /* BITMAPS*/
 extern const UINT16 duck[];
 extern const UINT16 building[];
 extern Model testDuckDashSnapshot;
 
-/* Ducks movement (jump/fall)*/
+
+/* ----- Function: move_duck -----
+
+Purpose: Updates the vertical position of the duck.
+
+Input: Duck *duck: a pointer to duck object
+
+Output: None
+*/
 void move_duck(Duck *duck);
 
-/* Move buildings left towards the duck*/
+
+/* ----- Function: move_buildings -----
+
+Purpose: Updates the horizontal position of the buildings and moves them left towards
+         the duck.
+
+Input: buildings[]: an array of building objects
+       count: number of buildings in the array
+
+Output: None
+*/
 void move_buildings(Building buildings[], unsigned int count);
 
-/* main model*/
+/* ----- Function: model_create_initial -----
+
+Purpose: This function returns a copy of the initial game model for testing or restarting the game. 
+
+Input: None
+
+Output: Model object which contains initial duck, building position, and score
+*/
 Model model_create_initial();
 
 #endif
