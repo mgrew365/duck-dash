@@ -4,8 +4,8 @@ Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
 Date Modified: February 23, 2026
-File Description: 
-
+File Description: This file implements a raster graphics library in which the routines 
+                  plot images including pixels, lines, bitmaps, etc. 
 */
 
 #include "raster.h"
