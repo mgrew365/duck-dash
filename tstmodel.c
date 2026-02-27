@@ -1,3 +1,14 @@
+/*
+File: TSTMODEL.C
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 2 - COMP 2659 
+Date Modified: February 22, 2026
+File Description: This file contains a test driver for Duck Dash that verifies the behavior of
+                  events in the game which include asynchronous, synchronous, and conditional based
+                  events. It prints the intial state of the game model, tests the events, and validates
+                  game logic.
+*/
 #include <stdio.h>
 
 #include "model.h"
@@ -8,9 +19,15 @@
 /* Atari ST clock */
 #define TICKS_PER_SECOND 70
 
-/* Helper function to print model state */
-void print_model(const Model *model)
-{
+/* ----- Function: print_model -----
+
+Purpose: Helper function to display the current game state model.
+
+Input: Model *model: A pointer to the game's current model which is used to modify the ducks state including position, jump state, etc.
+
+Output: None
+*/
+void print_model(const Model *model) {
     unsigned int i;
 
     printf("MODEL STATE\n");
@@ -33,8 +50,17 @@ void print_model(const Model *model)
     printf("---------------------\n\n");
 }
 
-int main(void)
-{
+
+/* ----- Function: main -----
+
+Purpose: This function initializes the game model using the test snapshot, and tests all events.
+
+Input: None
+
+Output: integer exit code
+*/
+
+int main(void) {
     unsigned int tick;
 
     /* Create local copy of test snapshot */
