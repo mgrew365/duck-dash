@@ -1,8 +1,21 @@
+/*
+File: EVENTS.H
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 2 - COMP 2659 
+Date Modified: February 21, 2026
+File Description: This header file declares all event handling functions used to
+                  update the game model in response to user input, elapsed time, and
+                  in game conditions. Specifically the events include asynchronous, 
+                  synchronous, and conditional based events. Additionally, these functions
+                  operate on the Mode structure.The implementation of this file is in asynch.c,
+                  synch.c, and cond.c.
+*/
+
 #ifndef EVENTS_H
 #define EVENTS_h
 
 #include "model.h"
-#include <stdbool.h>
 
 /* Asynchronous Events */
 /* Duck Jump - triggered when up key is pressed */
