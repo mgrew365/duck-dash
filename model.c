@@ -1,5 +1,5 @@
 /*
-File: MODEL.H
+File: MODEL.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
