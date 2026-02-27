@@ -142,8 +142,7 @@ static void plot_horizontal_segment(UINT32 *base, int row, int col, int length) 
 
  OUTPUT: None
 */
-static void plot_vertical_segment(UINT32 *base, int row, int col, int length)
-{
+static void plot_vertical_segment(UINT32 *base, int row, int col, int length) {
     int i;
     for (i = 0; i <= length; i++)
         plot_pixel((UINT8 *)base, row + i, col);
@@ -163,8 +162,7 @@ static void plot_vertical_segment(UINT32 *base, int row, int col, int length)
 
  OUTPUT: None
 */
-static void plot_diagonal_segment(UINT32 *base, int row, int col, int steps, int step_r, int step_c)
-{
+static void plot_diagonal_segment(UINT32 *base, int row, int col, int steps, int step_r, int step_c) {
     int i;
     for (i = 0; i <= steps; i++) {
         plot_pixel((UINT8 *)base, row, col);
@@ -181,8 +179,7 @@ static void plot_diagonal_segment(UINT32 *base, int row, int col, int steps, int
 
  OUTPUT: int: absolute value of x
 */
-static int abs(int x)
-{
+static int abs(int x) {
     return (x < 0) ? -x : x;
 }
 /*----- Function: plot_line -----
@@ -233,8 +230,7 @@ void plot_line(UINT32 *base, int start_row, int start_col, int end_row, int end_
 
  OUTPUT: None
 */
-void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width)
-{
+void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
     UINT16 i;
     UINT32 *draw;
 
@@ -285,8 +281,7 @@ void plot_square(UINT32 *base, int row, int col, UINT16 side) {
 
  OUTPUT: None
 */
-void plot_triangle(UINT32 *base, int row, int col, UINT16 triangle_base, UINT16 height, UINT8 direction)
-{
+void plot_triangle(UINT32 *base, int row, int col, UINT16 triangle_base, UINT16 height, UINT8 direction) {
     UINT16 i;
     UINT16 width;
     UINT16 draw_row;
@@ -413,8 +408,7 @@ void plot_32bit_bitmap(UINT32 *base, int row, int col, const UINT32 *bitmap, UIN
 
  OUTPUT: None
 */
-void plot_character(UINT8 *base, int row, int col, char ch)
-{
+void plot_character(UINT8 *base, int row, int col, char ch) {
     UINT16 i;
     UINT8 *glyph = (UINT8 *)GLYPH_START(ch);
 
