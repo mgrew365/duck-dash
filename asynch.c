@@ -17,7 +17,7 @@ File Description: This module defines asynchronous game events for Duck Dash whi
 
 /* ----- Function: duck_jump -----
 
-Purpose: This functionis the asyncronous event being when the duck jumps (when the up key is pressed by a user)
+Purpose: This function is the asynchronous event being when the duck jumps (when the up key is pressed by a user)
          and the game model is updated right when triggered.
 
 Input: Model *model: A pointer to the game's current model which is used to modify the ducks state including position, jump state, etc.
