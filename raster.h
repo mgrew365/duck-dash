@@ -6,14 +6,10 @@ Assignment: Checkpoint 2 - COMP 2659
 Date Modified: February 23, 2026
 File Description: This header file declares all raster modules.
                   The functions in this file are implemented in raster.c.
-
-
 */
 #include "types.h"
 #ifndef RASTER_H
 #define RASTER_H
-
-typedef short INT16;
 
 /*----- Function: clear_screen -----
 v
