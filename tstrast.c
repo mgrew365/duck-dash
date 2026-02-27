@@ -1,3 +1,18 @@
+/*
+File: TSTRAST.C
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 2 - COMP 2659 
+Date Modified: February 23, 2026
+File Description: This file is a test driver for the raster graphics library.
+                  It verifies the functionality of the routines implemented in raster.c
+                  which include clearing the screen, plotting pixels, drawing lines, 
+                  shapes, characters, strings, and a bitmap image. Each test is displayed
+                  on a blank screen and the user must press any button to see 
+                  a visual drawing. In between each drawing, any key must be pressed
+                  to see the next drawing. The screen should be cleared between each click.
+*/
+
 #include "raster.h"
 #include "font.h"
 #include <osbind.h>
