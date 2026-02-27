@@ -352,13 +352,13 @@ void plot_triangle(UINT32 *base, int row, int col, UINT16 triangle_base, UINT16 
 
  OUTPUT: None
 */
-void plot_bitmap_8(UINT8 *base, int row, int col, UINT16 height) {
+void plot_8bit_bitmap(UINT8 *base, int row, int col, const UINT8 *bitmap, UINT16 height) {
     UINT16 r, c;
-    
+
     for (r = 0; r < height; r++) {
         for (c = 0; c < 8; c++) {
-            if (base[r] & (0x80 >> c)) {
-                plot_pixel((UINT8 *)base, row + r, col +c);
+            if (bitmap[r] & (0x80 >> c)) {
+                plot_pixel(base, row + r, col + c);
             }
         }
     }
@@ -375,15 +375,12 @@ void plot_bitmap_8(UINT8 *base, int row, int col, UINT16 height) {
 
  OUTPUT: None
 */
-void plot_bitmap_16(UINT16 *base, int row, int col, UINT16 height) {
+void plot_16bit_bitmap(UINT16 *base, int row, int col, const UINT16 *bitmap, UINT16 height) {
     UINT16 r, c;
 
-    for (r = 0; r < height; r++)
-    {
-        for (c = 0; c < 16; c++)
-        {
-            if (base[r] & (0x80000000 >> c))
-            {
+    for (r = 0; r < height; r++) {
+        for (c = 0; c < 16; c++) {
+            if (bitmap[r] & (0x8000 >> c)) {
                 plot_pixel((UINT8 *)base, row + r, col + c);
             }
         }
@@ -401,18 +398,17 @@ void plot_bitmap_16(UINT16 *base, int row, int col, UINT16 height) {
 
  OUTPUT: None
 */
-void plot_bitmap_32(UINT32 *base, int row, int col, UINT16 height) {
+void plot_32bit_bitmap(UINT32 *base, int row, int col, const UINT32 *bitmap, UINT16 height) {
     UINT16 r, c;
-    
+
     for (r = 0; r < height; r++) {
         for (c = 0; c < 32; c++) {
-            if (base[r] & (0x8000000 >> c)) {
-                plot_pixel((UINT8 *)base, row + r, col +c);
+            if (bitmap[r] & (0x80000000UL >> c)) {
+                plot_pixel((UINT8 *)base, row + r, col + c);
             }
         }
     }
 }
-
 
 /*----- Function: plot_character -----
 
