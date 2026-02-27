@@ -1,21 +1,43 @@
+/*
+File: SYNCH.C
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 2 - COMP 2659 
+Date Modified: February 22, 2026
+File Description: This file defines all synchronous events for Duck Dash which are events that occur regularly
+                  at each clock tick. These evnts include updating building movement, game speed and score. 
+*/
 #include "synch.h"
 
 #define TICKS_PER_SECOND 70
 
-/* Change below as need be */
+/* Time intervals to increase speed (seconds) */
 #define SPEED_UP_1 20
 #define SPEED_UP_2 40
 #define SPEED_UP_3 80
 
-/* Building appearing gradually with speed of appearence increasing over time 
-   This function is not complete at the moment as we cant actually test this aspect yet
+/* ----- Function: building_appearence -----
+
+Purpose: This function handles the gradual appearance of buildings overtime.
+
+Input: Model *model: A pointer to the game's current model
+       elapsed_ticks (int): number of ticks since start game
+
+Output: None
 */
 void building_appearance(Model *model, unsigned int elapsed_ticks) {
     (void)model;
     (void)elapsed_ticks;
 }
 
-/* Speed increase at intervals: 20s, 40s, 80s, etc */
+/* ----- Function: speed_increase -----
+
+Purpose: This function allows for speed to be increased at predefined time intervals.
+
+Input: Model *model: A pointer to the game's current model 
+       elapsed_ticks (int): number of ticks since game start
+Output: None
+*/
 void speed_increase(Model *model, unsigned int elapsed_ticks) {
     unsigned int elapsed_seconds = elapsed_ticks / TICKS_PER_SECOND;
     unsigned int i;
@@ -29,7 +51,14 @@ void speed_increase(Model *model, unsigned int elapsed_ticks) {
     }
 }
   
-/* Score updates based on elapsed gameplay time */
+/* ----- Function: update_score -----
+
+Purpose: This function allows for the update of the players score based on elapsed gameplay time.
+
+Input: Model *model: A pointer to the game's current model 
+       elapsed_ticks (int): number of ticks since game start
+Output: None
+*/
 void update_score(Model *model, unsigned int elapsed_ticks) {
     model->score = elapsed_ticks / TICKS_PER_SECOND;
 }
