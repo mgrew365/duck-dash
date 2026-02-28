@@ -61,9 +61,18 @@ void clear_region(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
  OUTPUT: None
 
 */
+
 void plot_pixel(UINT8 *base, int row, int col){
+    /* The below 2 if statements handle boundries */
+    if (row < 0 || row >= SCREEN_HEIGHT)
+        return;
+
+    if (col < 0 || col >= SCREEN_WIDTH)
+        return;
+
     if (col < SCREEN_WIDTH && row < SCREEN_HEIGHT)
         *(base + row * 40 + (col >> 4)) |= (1 << (15 - (col & 15)));
+
 }
 
 
