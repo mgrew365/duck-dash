@@ -86,10 +86,20 @@ void plot_pixel(UINT8 *base, int row, int col){
 
  OUTPUT: None
 */
-
-
 void plot_horizontal_line(UINT32 *base, int row, int col, UINT16 length) {
     UINT16 i;
+
+    /* bounds checking */
+    if (row < 0 || row >= SCREEN_HEIGHT)
+        return;
+
+    if (col < 0) {
+        length += col; /* reduce length if starting before 0*/
+        col = 0;
+    }
+
+    if (col + length > SCREEN_WIDTH)
+        length = SCREEN_WIDTH - col;
 
     for (i = 0; i < length; i++) {
         plot_pixel((UINT8 *)base, row, col + i);
