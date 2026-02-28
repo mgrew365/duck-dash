@@ -23,12 +23,17 @@ v
  OUTPUT: None
 
 */
+
 void clear_screen(UINT32 *base) {
     int i;
-    for (i = 0; i < 400 * 20; i++)
-        base[i] = 0;
-}
+    int total_size;
 
+    total_size = 400 * 20;  /* 400 rows * 20 UINT32 per row */
+
+    for (i = 0; i < total_size; i++) {
+        base[i] = 0;
+    }
+}
 /*----- Function: clear_region -----
 
  PURPOSE: Clear a region of the screen. The section is specified by the coordinates of the top left corner, and the height and width of the region.
