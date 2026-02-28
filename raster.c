@@ -61,20 +61,28 @@ void clear_region(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
  OUTPUT: None
 
 */
-
 void plot_pixel(UINT8 *base, int row, int col){
-    /* The below 2 if statements handle boundries */
+    UINT16 *word;
+    int r;
+
+    /* Handles bounds and clipping */
     if (row < 0 || row >= SCREEN_HEIGHT)
         return;
-
     if (col < 0 || col >= SCREEN_WIDTH)
         return;
 
-    if (col < SCREEN_WIDTH && row < SCREEN_HEIGHT)
-        *(base + row * 40 + (col >> 4)) |= (1 << (15 - (col & 15)));
+    word = (UINT16 *)base;
 
+    /* Move down row rows (40 words per row) */
+    for (r = 0; r < row; r++)
+        word += 40;
+
+    /* Move to correct word in the row */
+    word += (col >> 4);
+
+    /* Set the pixel bit */
+    *word |= (1 << (15 - (col & 15)));
 }
-
 
 /*----- Function: plot_horizontal_line -----
 
@@ -108,7 +116,7 @@ void plot_horizontal_line(UINT32 *base, int row, int col, UINT16 length) {
 
 /*----- Function: plot_vertical_line -----
 
- PURPOSE: Plot a hoizontal line on the screen. The vertical line is specified by the topmost pixel of the line and the length of the line.
+ PURPOSE: Plot a vertical line on the screen. The vertical line is specified by the topmost pixel of the line and the length of the line.
 
  INPUT: Address(UINT32*): to the start of the screen
         Position(row,col): the coordinates of the topmost pixel of the vertical line
@@ -116,19 +124,33 @@ void plot_horizontal_line(UINT32 *base, int row, int col, UINT16 length) {
 
  OUTPUT: None
 */
+
 void plot_vertical_line(UINT32 *base, int row, int col, UINT16 length) {
+    int clipped_length;
     UINT16 i;
 
-    if (col < SCREEN_WIDTH && row < SCREEN_HEIGHT && row + length <= SCREEN_HEIGHT)
-    {
-        UINT32 *loc = base + (row * 20) + (col >> 5);
-        for (i = 0; i < length; i++)
-        {
-            *loc |= (UINT32)1 << (31 - (col & 31));
-            loc += 20;
-        }
+    /* Column bounds */
+    if (col < 0 || col >= SCREEN_WIDTH)
+        return;
+
+    clipped_length = length;
+
+    /* Top clipping */
+    if (row < 0) {
+        clipped_length += row;   /* row is negative */
+        row = 0;
     }
 
+    /* Bottom clipping */
+    if (row + clipped_length > SCREEN_HEIGHT)
+        clipped_length = SCREEN_HEIGHT - row;
+
+    /* Fully clipped */
+    if (clipped_length <= 0)
+        return;
+
+    for (i = 0; i < (UINT16)clipped_length; i++)
+        plot_pixel((UINT8 *)base, row + i, col);
 }
 
 /*----- Function: plot_horizontal_segment -----
