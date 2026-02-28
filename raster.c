@@ -272,20 +272,24 @@ void plot_line(UINT32 *base, int start_row, int start_col, int end_row, int end_
  OUTPUT: None
 */
 void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
-    UINT16 i;
-    UINT32 *draw;
-
+    
+void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
+    UINT16 r;
     if (row >= SCREEN_HEIGHT || col >= SCREEN_WIDTH)
         return;
 
+    if (row < 0) { length += row; row = 0; }
+    if (col < 0) { width += col; col = 0; }
+
     if (row + length > SCREEN_HEIGHT)
         length = SCREEN_HEIGHT - row;
+    if (col + width > SCREEN_WIDTH)
+        width = SCREEN_WIDTH - col;
 
-    for (i = 0; i < length; i++)
-    {
-        draw = base + ((row + i) * 20);
-        plot_horizontal_line(base, row + i, col, width);
-    }
+    for (r = 0; r < length; r++)
+        plot_horizontal_line(base, row + r, col, width);
+}
+
 }
 
 /*----- Function: plot_square -----
