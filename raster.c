@@ -277,8 +277,12 @@ void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width)
     if (row >= SCREEN_HEIGHT || col >= SCREEN_WIDTH)
         return;
 
-    if (row < 0) { length += row; row = 0; }
-    if (col < 0) { width += col; col = 0; }
+    if (row < 0) { 
+        length += row; row = 0; 
+    }
+    if (col < 0) { 
+        width += col; col = 0; 
+    }
 
     if (row + length > SCREEN_HEIGHT)
         length = SCREEN_HEIGHT - row;
@@ -383,12 +387,20 @@ void plot_triangle(UINT32 *base, int row, int col, UINT16 triangle_base, UINT16 
 */
 void plot_8bit_bitmap(UINT8 *base, int row, int col, const UINT8 *bitmap, UINT16 height) {
     UINT16 r, c;
+    int draw_row, draw_col;
 
     for (r = 0; r < height; r++) {
+        draw_row = row + r;
+        if (draw_row < 0 || draw_row >= SCREEN_HEIGHT)
+            continue;
+
         for (c = 0; c < 8; c++) {
-            if (bitmap[r] & (0x80 >> c)) {
-                plot_pixel(base, row + r, col + c);
-            }
+            draw_col = col + c;
+            if (draw_col < 0 || draw_col >= SCREEN_WIDTH)
+                continue;
+
+            if (bitmap[r] & (0x80 >> c))
+                plot_pixel(base, draw_row, draw_col);
         }
     }
 }
@@ -406,16 +418,23 @@ void plot_8bit_bitmap(UINT8 *base, int row, int col, const UINT8 *bitmap, UINT16
 */
 void plot_16bit_bitmap(UINT16 *base, int row, int col, const UINT16 *bitmap, UINT16 height) {
     UINT16 r, c;
+    int draw_row, draw_col;
 
     for (r = 0; r < height; r++) {
+        draw_row = row + r;
+        if (draw_row < 0 || draw_row >= SCREEN_HEIGHT)
+            continue;
+
         for (c = 0; c < 16; c++) {
-            if (bitmap[r] & (0x8000 >> c)) {
-                plot_pixel((UINT8 *)base, row + r, col + c);
-            }
+            draw_col = col + c;
+            if (draw_col < 0 || draw_col >= SCREEN_WIDTH)
+                continue;
+
+            if (bitmap[r] & (0x8000 >> c))
+                plot_pixel((UINT8 *)base, draw_row, draw_col);
         }
     }
 }
-
 
 /*----- Function: plot_bitmap_32 -----
 
@@ -429,16 +448,23 @@ void plot_16bit_bitmap(UINT16 *base, int row, int col, const UINT16 *bitmap, UIN
 */
 void plot_32bit_bitmap(UINT32 *base, int row, int col, const UINT32 *bitmap, UINT16 height) {
     UINT16 r, c;
+    int draw_row, draw_col;
 
     for (r = 0; r < height; r++) {
+        draw_row = row + r;
+        if (draw_row < 0 || draw_row >= SCREEN_HEIGHT)
+            continue;
+
         for (c = 0; c < 32; c++) {
-            if (bitmap[r] & (0x80000000UL >> c)) {
-                plot_pixel((UINT8 *)base, row + r, col + c);
-            }
+            draw_col = col + c;
+            if (draw_col < 0 || draw_col >= SCREEN_WIDTH)
+                continue;
+
+            if (bitmap[r] & (0x80000000UL >> c))
+                plot_pixel((UINT8 *)base, draw_row, draw_col);
         }
     }
 }
-
 /*----- Function: plot_character -----
 
  PURPOSE: Plots a single character, as a bitmap from a font table, to the screen.
@@ -449,13 +475,19 @@ void plot_32bit_bitmap(UINT32 *base, int row, int col, const UINT32 *bitmap, UIN
 
  OUTPUT: None
 */
+
 void plot_character(UINT8 *base, int row, int col, char ch) {
     UINT16 i;
     UINT8 *glyph = (UINT8 *)GLYPH_START(ch);
+    UINT8 *line_ptr;
 
-    for (i = 0; i < 8; i++, glyph++)
-    {
-        *(base + (row + i) * 80 + (col >> 3)) |= *glyph;
+    /* Start pointer at the beginning of the first row */
+    line_ptr = base + (row * 80) + (col >> 3);
+
+    for (i = 0; i < 8; i++) {
+        *line_ptr |= *glyph;
+        glyph++;           /* move to next glyph row */
+        line_ptr += 80;    /* move pointer to next screen row */
     }
 }
 
