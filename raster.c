@@ -271,7 +271,6 @@ void plot_line(UINT32 *base, int start_row, int start_col, int end_row, int end_
 
  OUTPUT: None
 */
-void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
     
 void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
     UINT16 r;
@@ -290,7 +289,6 @@ void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width)
         plot_horizontal_line(base, row + r, col, width);
 }
 
-}
 
 /*----- Function: plot_square -----
 
@@ -335,13 +333,11 @@ void plot_triangle(UINT32 *base, int row, int col, UINT16 triangle_base, UINT16 
     if (height == 0 || triangle_base == 0)
         return;
 
-    for (i = 0; i < height; i++)
-    {
+    for (i = 0; i < height; i++) {
         /* width grows as we go down */
         width = (triangle_base * (i + 1)) / height;
 
-        switch (direction)
-        {
+        switch (direction) {
             /* top-left right angle */
             case 0:
                 draw_row = row + i;
