@@ -23,7 +23,6 @@ v
  OUTPUT: None
 
 */
-
 void clear_screen(UINT32 *base) {
     int i;
     int total_size;
@@ -34,6 +33,8 @@ void clear_screen(UINT32 *base) {
         base[i] = 0;
     }
 }
+
+
 /*----- Function: clear_region -----
 
  PURPOSE: Clear a region of the screen. The section is specified by the coordinates of the top left corner, and the height and width of the region.
@@ -46,7 +47,6 @@ void clear_screen(UINT32 *base) {
  OUTPUT: None
 
 */
-       
 void clear_region(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
     UINT16 r, c;
 
@@ -56,6 +56,7 @@ void clear_region(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
         }
     }
 }
+
 
 /*----- Function: plot_pixel -----
 
@@ -89,6 +90,7 @@ void plot_pixel(UINT8 *base, int row, int col){
     *word |= (1 << (15 - (col & 15)));
 }
 
+
 /*----- Function: plot_horizontal_line -----
 
  PURPOSE: Plot a hoizontal line on the screen. The horizontal line is specified by the leftmost pixel of the line and the length of the line.
@@ -119,6 +121,7 @@ void plot_horizontal_line(UINT32 *base, int row, int col, UINT16 length) {
     }
 }
 
+
 /*----- Function: plot_vertical_line -----
 
  PURPOSE: Plot a vertical line on the screen. The vertical line is specified by the topmost pixel of the line and the length of the line.
@@ -129,7 +132,6 @@ void plot_horizontal_line(UINT32 *base, int row, int col, UINT16 length) {
 
  OUTPUT: None
 */
-
 void plot_vertical_line(UINT32 *base, int row, int col, UINT16 length) {
     int clipped_length;
     UINT16 i;
@@ -157,6 +159,7 @@ void plot_vertical_line(UINT32 *base, int row, int col, UINT16 length) {
     for (i = 0; i < (UINT16)clipped_length; i++)
         plot_pixel((UINT8 *)base, row + i, col);
 }
+
 
 /*----- Function: plot_horizontal_segment -----
 
@@ -228,6 +231,7 @@ static void plot_diagonal_segment(UINT32 *base, int row, int col, int steps, int
 static int abs(int x) {
     return (x < 0) ? -x : x;
 }
+
 /*----- Function: plot_line -----
 
  PURPOSE: Plots a line on the screen between the two given points.
@@ -276,7 +280,6 @@ void plot_line(UINT32 *base, int start_row, int start_col, int end_row, int end_
 
  OUTPUT: None
 */
-    
 void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
     UINT16 r;
     if (row >= SCREEN_HEIGHT || col >= SCREEN_WIDTH)
