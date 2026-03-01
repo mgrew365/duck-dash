@@ -1,17 +1,15 @@
-			xdef		_plot_something_2
+; clear_screen
+			xdef		_clear_screen
+_clear_screen:	
+			link	a6,#0
+			move.link	8(a6),a0
+			move.w		#8000,d0
+clear_loop:
+			clr.l		(a0)+
+			subq.w		#1,d0
+			bne			clear_loop
 
-; [TO DO] delete this example function
-
-y			equ		14
-x			equ		12
-base			equ		8
-
-_plot_something_2:	link		a6,#0
-			movea.l		base(a6),a0
-			move.w		x(a6),d0
-			move.w		y(a6),d1
-		;	...		...
 			unlk		a6
 			rts
 
-; recall: cc68x assumes d0-2/a0-2 are *not* preserved across subroutine calls!
+;
