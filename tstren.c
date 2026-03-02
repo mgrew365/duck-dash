@@ -11,18 +11,22 @@ File Description: Test driver for the renderer. Displays a static frame.
 #include "renderer.h"
 #include "model.h"
 
+void wait_key(void) {
+    Cnecin();
+}
+
 int main() {
-    /* Get the physical base of the Atari ST screen */
     UINT32 *base = (UINT32 *)Physbase();
 
-    /* Use the test snapshot from model.c [cite: 6] */
     Model myModel = testDuckDashSnapshot;
 
     /* Render the state to the screen */
     render(&myModel, base);
+    
+    wait_key();
 
-    /* Wait for a keypress before returning to GEM [cite: 8] */
-    Cnecin();
-
+    /*Clear screen after key press*/
+    clear_screen(base);
+    
     return 0;
 }

@@ -20,9 +20,9 @@ File Description: This file is a test driver for the raster graphics library.
 
 #define SCREEN_WIDTH  640
 #define SCREEN_HEIGHT 400
-#define INVADER_HEIGHT 16
+#define DUCK_HEIGHT 16
 
-UINT16 invader_bitmap[INVADER_HEIGHT] = {
+UINT16 duck_bitmap[DUCK_HEIGHT] = {
     0x0000,
     0x0060,
     0x0090,
@@ -100,8 +100,8 @@ int main() {
         (UINT16 *)base,     /* screen base */
         50,                 /* row */
         50,                 /* col */
-        invader_bitmap,     /* bitmap */
-        INVADER_HEIGHT      /* height */
+        duck_bitmap,     /* bitmap */
+        DUCK_HEIGHT      /* height */
     );
     wait_key();
 
