@@ -16,6 +16,27 @@ File Description: This file defines the game model and basic movement functions 
 /* Leave extra space at the bottom of screen so duck doesnt land on edge of screen, lands on floor */
 #define FLOOR_BUFFER 40
 
+/* Sprite Data*/
+const UINT16 duck_bitmap[16] = {
+    0x0000, 0x0060, 0x0090, 0x0108,
+    0x0104, 0x0108, 0x0E10, 0x0890,
+    0x0910, 0x0890, 0x0410, 0x03E0,
+    0x0000, 0x0000, 0x0000, 0x0000
+};
+
+/* Temporary Building Bitmap*/
+const UINT32 building_bitmap[32] = {
+    0xFFFFFFFF, 0x80000001, 0x80000001, 0x80000001,
+    0x80F00F01, 0x80F00F01, 0x80000001, 0x80000001,
+    0x80F00F01, 0x80F00F01, 0x80000001, 0x80000001,
+    0x80F00F01, 0x80F00F01, 0x80000001, 0x80000001,
+    0x80F00F01, 0x80F00F01, 0x80000001, 0x80000001,
+    0x80F00F01, 0x80F00F01, 0x80000001, 0x80000001,
+    0x80F00F01, 0x80F00F01, 0x80000001, 0x80000001,
+    0x80F00F01, 0x80F00F01, 0x80000001, 0xFFFFFFFF
+};
+
+
 /* Initial game snapshot of game state for testing purposes*/
 Model testDuckDashSnapshot = {
     /* Duck */
@@ -27,10 +48,10 @@ Model testDuckDashSnapshot = {
 
     /* Buildings */
     {
-        { 700, 360, 32, 32 },
-        { 860, 360, 32, 32 },
-        { 1020, 360, 32, 32 },
-        { 1180, 360, 32, 32 }
+        { 200, 360, -2, 32, 32 },
+        { 300, 360, -2, 32, 32 },
+        { 400, 360, -2, 32, 32 },
+        { 500, 360, -2, 32, 32 }
     },
 
     /* Score */
