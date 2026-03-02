@@ -3,7 +3,7 @@ File: TSTRAST.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 23, 2026
+Date Modified: March 1, 2026
 File Description: This file is a test driver for the raster graphics library.
                   It verifies the functionality of the routines implemented in raster.c
                   which include clearing the screen, plotting pixels, drawing lines, 
@@ -94,7 +94,7 @@ int main() {
     plot_triangle((UINT32 *)base, 250, 200, 60, 40, 0);    
     wait_key();
 
-    /* plot 16-bit bitmap (invader) */
+    /* plot 16-bit bitmap */
     clear_screen((UINT32 *)base);
     plot_16bit_bitmap(
         (UINT16 *)base,     /* screen base */

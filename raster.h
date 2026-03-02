@@ -3,7 +3,7 @@ File: RASTER.H
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 23, 2026
+Date Modified: March 1, 2026
 File Description: This header file declares all raster modules.
                   The functions in this file are implemented in raster.c.
 */
@@ -55,7 +55,7 @@ void plot_pixel(UINT8 *base, int row, int col);
 
  PURPOSE: Plot a hoizontal line on the screen. The horizontal line is specified by the leftmost pixel of the line and the length of the line.
 
- INPUT: Address(UINT8*): to the start of the screen
+ INPUT: Address(UINT32*): to the start of the screen
         Position(row,col): the coordinates of the leftmost pixel of the horizontal line
         Length: the lenth in pixels of the line
 
@@ -121,7 +121,7 @@ void plot_square(UINT32 *base, int row, int col, UINT16 side);
 
  PURPOSE: Plots a triangle on the screen given by the coordinate of the 90° angle, the length of the base, the length of the height, and the direction of the triangle.
 
- INPUT: Address(UINT8*): to the start of the screen
+ INPUT: Address(UINT32*): to the start of the screen
         Position(row,col): the coordinates of the pixel of the 90° angle of the triangle
         Base: the length (number of columns) of the base in pixels of the triangle
         Height: the lenth (number of rows) of the height in pixels of the triangle
