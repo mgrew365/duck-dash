@@ -3,7 +3,7 @@ File: MODEL.H
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 21, 2026
+Date Modified: March 1, 2026
 File Description: This file defines the main data structures and function prototypes for the Duck
                   Dash game model. It includes definitions for Duck and Building objects, the main Model
                   structure containing the duck, buildings and score, and prototypes for functions that
