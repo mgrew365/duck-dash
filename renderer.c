@@ -23,8 +23,7 @@ Input: Model pointer: current state of the game play.
        base(UINT32*): start address of the frame buffer.
 Output: None/No direct output
 */
-void render(const Model *model, UINT32 *base)
-{
+void render(const Model *model, UINT32 *base) {
     int i;
     
     /* Clear the screen  */
@@ -50,8 +49,7 @@ Input: Duck pointer: duck object
        base(UINT32*): start address of the frame buffer.
 Output: None/No direct output
 */
-void render_duck(const Duck *duck, UINT32 *base)
-{
+void render_duck(const Duck *duck, UINT32 *base) {
     /* Duck bitmap is 16-bit   */
     plot_16bit_bitmap((UINT16 *)base, duck->y, duck->x, duck_bitmap, 16);
 }
@@ -64,8 +62,7 @@ Input: Building pointer: building object
        base(UINT32*): start address of the frame buffer.
 Output: None/No direct output
 */
-void render_building(const Building *building, UINT32 *base)
-{
+void render_building(const Building *building, UINT32 *base) {
     /* Building width is 32 in model.c */
     plot_32bit_bitmap(base, building->y, building->x, building_bitmap, building->height);
 }
