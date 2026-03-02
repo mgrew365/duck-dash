@@ -44,8 +44,13 @@ typedef struct {
 } Model;
 
 /* BITMAPS*/
-extern const UINT16 duck[];
-extern const UINT16 building[];
+/* 16-bit duck sprite */
+extern const UINT16 duck_bitmap[];
+
+/* 32-bit building sprite */
+extern const UINT32 building_bitmap[];
+
+/* Test snapshot of initial state */
 extern Model testDuckDashSnapshot;
 
 
