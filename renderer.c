@@ -3,7 +3,7 @@ File: RENDERER.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 23, 2026
+Date Modified: March 1, 2026
 File Description: Contains the implementation of rendering functions for all the game
 play objects. Each of the functions draws a specfic object using the raster graphics.
 
@@ -20,7 +20,7 @@ play objects. Each of the functions draws a specfic object using the raster grap
 Function: render
 Purpose: draws the complete frame by cearing the screen and rendering all objects.
 Input: Model pointer: current state of the game play.
-       Address(UINT8*): start address of the frame buffer.
+       base(UINT32*): start address of the frame buffer.
 Output: None/No direct output
 */
 void render(const Model *model, UINT32 *base)
@@ -47,7 +47,7 @@ void render(const Model *model, UINT32 *base)
 Function: render_duck
 Purpose: plots the duck bitmap at the corrdinates of the model.
 Input: Duck pointer: duck object
-       Address(UINT8*): start address of the frame buffer.
+       base(UINT32*): start address of the frame buffer.
 Output: None/No direct output
 */
 void render_duck(const Duck *duck, UINT32 *base)
@@ -61,7 +61,7 @@ void render_duck(const Duck *duck, UINT32 *base)
 Function: render_building
 Purpose: Plots the building bitmap at the model coordinates.
 Input: Building pointer: building object
-       Address(UINT8*): start address of the frame buffer.
+       base(UINT32*): start address of the frame buffer.
 Output: None/No direct output
 */
 void render_building(const Building *building, UINT32 *base)
