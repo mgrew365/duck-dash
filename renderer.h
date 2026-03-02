@@ -14,6 +14,7 @@ to the screen using rasters.
 #define RENDERER_H
 
 #include "model.h"
+#include "raster.h"
 #include "types.h"
 
 /*
@@ -24,7 +25,7 @@ Input: Model Pointer: the current game state to be rendered.
        Address(UINT8*): pointer to the start fo the memory of the frame buffer
 Output: None/No direct value
 */
-void render(const Model *model, UINT8 *base);
+void render(const Model *model, UINT32 *base);
 
 /*
 Function: Render_Duck
@@ -33,7 +34,7 @@ Input: Duck Pointer: the object to render
        Address(UINT8*): pointer to start of FB
 Output: None/No direct value
 */
-void render_duck(const Duck *duck, UINT8 *base);
+void render_duck(const Duck *duck, UINT32 *base);
 
 /*
 Function: Render_Building
@@ -42,15 +43,7 @@ Input: Building Pointer: the object to render
        Address(UINT8*): pointer to start of FB
 Output: None/No direct value
 */
-void render_building(const Building *b, UINT8 *base);
+void render_building(const Building *building, UINT32 *base);
 
-/*
-Function: Render_score
-Purpose: Draw the score and score values as the text to the screen
-Input: score(unsigned int) value getting displayed
-       Address(UINT8*): pointer to start of FB
-Output: None/No direct value
-*/
-void render_score(unsigned int score, UINT8 *base);
 
 #endif

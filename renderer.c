@@ -23,18 +23,23 @@ Input: Model pointer: current state of the game play.
        Address(UINT8*): start address of the frame buffer.
 Output: None/No direct output
 */
-void render(const Model *model, UINT8 *base)
+void render(const Model *model, UINT32 *base)
 {
-    unsigned int i;
+    int i;
+    
+    /* Clear the screen  */
+    clear_screen(base);
 
-    clear_screen((UINT32*)base);
-
+    /*Render the Duck */
     render_duck(&model->duck, base);
 
-    for (i = 0; i < MAX_BUILDINGS; i++)
+    /* Render all Buildings*/
+    for (i = 0; i < MAX_BUILDINGS; i++) {
         render_building(&model->buildings[i], base);
+    }
 
-    render_score(model->score, base);
+    /* Render Score  */
+    plot_string((UINT8 *)base, 10, 10, "SCORE: 0"); 
 }
 
 
@@ -45,14 +50,10 @@ Input: Duck pointer: duck object
        Address(UINT8*): start address of the frame buffer.
 Output: None/No direct output
 */
-void render_duck(const Duck *duck, UINT8 *base)
+void render_duck(const Duck *duck, UINT32 *base)
 {
-    plot_bitmap_16(
-        (UINT16*)base,
-        duck->y,
-        duck->x,
-        DUCK_HEIGHT
-    );
+    /* Duck bitmap is 16-bit   */
+    plot_16bit_bitmap((UINT16 *)base, duck->y, duck->x, duck_bitmap, 16);
 }
 
 
@@ -63,53 +64,8 @@ Input: Building pointer: building object
        Address(UINT8*): start address of the frame buffer.
 Output: None/No direct output
 */
-void render_building(const Building *b, UINT8 *base)
+void render_building(const Building *building, UINT32 *base)
 {
-    plot_bitmap_32(
-        (UINT32*)base,
-        b->y,
-        b->x,
-        BUILDING_HEIGHT
-    );
-}
-
-
-/*
-Function: render_score
-Purpose: converts the score values to characters and plots the text. (only positive integer values)
-Input: Score(unsigned int): the value to be displayed
-       Address(UINT8*): start address of the frame buffer.
-Output: None/No direct output
-*/
-void render_score(unsigned int score, UINT8 *base)
-{
-    char text[12];
-    int i = 0;
-
-    text[i++] = 'S';
-    text[i++] = 'c';
-    text[i++] = 'o';
-    text[i++] = 'r';
-    text[i++] = 'e';
-    text[i++] = ':';
-    text[i++] = ' ';
-
-    if (score == 0)
-        text[i++] = '0';
-    else {
-        unsigned int s = score;
-        char temp[6];
-        int j = 0;
-
-        while (s > 0) {
-            temp[j++] = '0' + (s % 10);
-            s /= 10;
-        }
-        while (j--)
-            text[i++] = temp[j];
-    }
-
-    text[i] = '\0';
-
-    plot_string(base, 10, 10, text);
+    /* Building width is 32 in model.c */
+    plot_32bit_bitmap(base, building->y, building->x, building_bitmap, building->height);
 }
