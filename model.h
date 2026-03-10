@@ -41,6 +41,7 @@ typedef struct {
     Duck duck;
     Building buildings[MAX_BUILDINGS];
     unsigned int score;
+    bool quit;
 } Model;
 
 /* BITMAPS*/

@@ -55,7 +55,8 @@ Model testDuckDashSnapshot = {
     },
 
     /* Score */
-    0
+    0,
+    false /* quit*/
 };
 
 /* ----- Function: move_duck -----
