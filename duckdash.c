@@ -14,9 +14,9 @@ Output: Current value of the system clock (UINT32)
 */
 UINT32 get_time() {
     UINT32 time;
-    long old_ssp = Super(0);    /* enter supervisory model */
+    long old_ssp = Super(0);
     time = *((UINT32 *)CLOCK_ADDRESS);
-    Super(old_ssp);            /* exit supervisory mode */
+    Super(old_ssp);
     return time;
 }
 
@@ -26,43 +26,40 @@ Input: None
 Output: 0 on successful termination
 */
 int main() {
-    Model model;
-    UINT32 timeThen, timeNow, timeElapsed;
+    Model model = model_create_initial();
+    UINT32 timeThen, timeNow;
     char key;
 
-    init_model(&model);
-    render(&model, get_video_base()); /* Initial render */
-    timeThen = get_time();
-    model.quit = 0;
+    model.quit = false; 
+    render(&model, get_video_base()); 
 
-    /*Main Game Loop */
+    timeThen = get_time();
+
     while (!model.quit) {
-        
-        /* checking keyboard input*/
         if (has_input()) {
             key = get_input();
-            if (key == 27) {         /* ESC key to quit */
+            if (key == ESC_KEY) {
                 quit_game(&model);
-            } else if (key == ' ') {  /* Space/Up to jump */
+            } else if (key == SPACE_BAR) {
                 duck_jump(&model);
             }
         }
 
-        /* Check for Clock Ticks */
         timeNow = get_time();
-        timeElapsed = timeNow - timeThen;
-
-        if (timeElapsed > 0) {
-            building_appearance(&model, timeNow);
-            speed_increase(&model, timeNow);
-            update_score(&model, timeNow);
-
+        if (timeNow != timeThen) {
+            move_duck(&model.duck); 
+            move_buildings(model.buildings, MAX_BUILDINGS);
+            
             if (duck_building_collision(&model)) {
-                model.quit = 1;
+                model.quit = true;
+            }
+
+            if (duck_ground_collision(&model.duck)) {
+                model.duck.y = (400 - 40 - 16);
+                model.duck.delta_y = 0;
             }
 
             render(&model, get_video_base());
-            
             timeThen = timeNow;
         }
     }
