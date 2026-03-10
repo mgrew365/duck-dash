@@ -13,6 +13,8 @@ File Description: This file is a test driver for the raster graphics library.
                   to see the next drawing. The screen should be cleared between each click.
 */
 
+/* check borders */
+/* dont have to fill the boxes */
 #include "raster.h"
 #include "font.h"
 #include <osbind.h>
