@@ -8,7 +8,7 @@ File Description: This file defines all synchronous events for Duck Dash which a
                   at each clock tick. These evnts include updating building movement, game speed and score. 
 */
 #include "synch.h"
-
+#include "cond.c"
 #define TICKS_PER_SECOND 70
 
 /* Time intervals to increase speed (seconds) */
@@ -26,8 +26,18 @@ Input: Model *model: A pointer to the game's current model
 Output: None
 */
 void building_appearance(Model *model, unsigned int elapsed_ticks) {
-    (void)model;
+    unsigned int i;
+
     (void)elapsed_ticks;
+
+    for (i = 0; i < MAX_BUILDINGS; i++)
+    {
+        if (building_left_border(&model->buildings[i]))
+        {
+            /* reset building to right side of screen */
+            model->buildings[i].x = SCREEN_WIDTH;
+        }
+    }
 }
 
 /* ----- Function: speed_increase -----
@@ -61,4 +71,45 @@ Output: None
 */
 void update_score(Model *model, unsigned int elapsed_ticks) {
     model->score = elapsed_ticks / TICKS_PER_SECOND;
+}
+
+/* ----- Function: update_duck -----
+
+Purpose: Controls duck vertical movement (NO GRAVITY).
+         Duck moves up when jumping and moves down once max height is reached.
+
+Input: Model *model
+
+Output: None
+*/
+void update_duck(Model *model) {
+    /* move duck */
+    model->duck.y += model->duck.delta_y;
+
+    /* reached maximum jump height */
+    if (duck_max_height(&model->duck)) {
+        model->duck.delta_y = 4;   /* start descending */
+    }
+
+    /* reached ground */
+    if (duck_ground_collision(&model->duck)) {
+        model->duck.delta_y = 0;   /* stop movement */
+    }
+}
+
+
+/* ----- Function: update_buildings -----
+
+Purpose: Moves buildings left across the screen.
+
+Input: Model *model
+
+Output: None
+*/
+void update_buildings(Model *model) {
+    unsigned int i;
+
+    for (i = 0; i < MAX_BUILDINGS; i++) {
+        model->buildings[i].x += model->buildings[i].delta_x;
+    }
 }
