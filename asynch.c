@@ -41,5 +41,5 @@ Input: Model *model: A pointer to the game's current model.
 Output: None
 */
 void quit_game(Model *model) {
-    (void)model; 
+    model->quit = 1; 
 }
