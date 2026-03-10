@@ -1,4 +1,4 @@
-#ifndef DUCKDASH
+#ifndef DUCKDASH_H
 
 
 #endif
