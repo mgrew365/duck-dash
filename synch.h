@@ -45,4 +45,26 @@ Output: None
 void update_score(Model *model, unsigned int elapsed_ticks);
 
 
+/* ----- Function: update_duck -----
+
+Purpose: Controls duck vertical movement (NO GRAVITY).
+         Duck moves up when jumping and moves down once max height is reached.
+
+Input: Model *model
+
+Output: None
+*/
+void update_duck(Model *model);
+
+
+/* ----- Function: update_buildings -----
+
+Purpose: Moves buildings left across the screen.
+
+Input: Model *model
+
+Output: None
+*/
+void update_buildings(Model *model);
+
 #endif 
