@@ -7,6 +7,9 @@
 
 #define CLOCK_ADDRESS 0x462
 
+/*extern long Super(int level);
+extern void* get_video_base(void);
+*/
 /* ----- Function: get_time -----
 Purpose: Safely reads the TOS 70Hz system clock by entering supervisor mode.
 Input: None
@@ -59,7 +62,7 @@ int main() {
                 model.duck.delta_y = 0;
             }
 
-            render(&model, get_video_base());
+            render(&model, (UINT32*) get_video_base());
             timeThen = timeNow;
         }
     }
