@@ -12,6 +12,7 @@ File Description: This header file declares all conditional game events for Duck
 #define COND_H
 
 #include "model.h"
+#include "types.h"
 
 /* Define bool */
 #ifndef BOOL_DEFINED
