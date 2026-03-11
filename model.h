@@ -88,4 +88,6 @@ Output: Model object which contains initial duck, building position, and score
 */
 Model model_create_initial();
 
+
+Building model_create_building(void);
 #endif
