@@ -14,12 +14,6 @@ File Description: This header file declares all conditional game events for Duck
 #include "model.h"
 #include "types.h"
 
-/* Define bool */
-#ifndef BOOL_DEFINED
-#define BOOL_DEFINED
-typedef enum { false = 0, true = 1 } bool;
-#endif
-
 
 /* ----- Function: duck_building_collision -----
 
@@ -74,5 +68,10 @@ Input: Model *model: A pointer to current game model
 Output: boolean value: boolean value: true if the game has ended and should be restarted, else false
 */
 bool restart_game(const Model *model);
+
+/*
+
+*/
+void process_cond_events(Model *model);  
 
 #endif 
