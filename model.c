@@ -101,3 +101,21 @@ Output: Model object which contains initial duck, building position, and score
 Model model_create_initial() {
     return testDuckDashSnapshot;
 }
+
+Building model_create_building(void) {
+    static int next_height = 32;   
+    Building b;
+
+    b.width = 32;                   
+    b.height = next_height;         
+
+    next_height += 16;
+    if (next_height > 64) {
+        next_height = 32;
+    }
+
+    b.x = 640;                      
+    b.y = 400 - 40 - b.height;      
+
+    return b;
+}
