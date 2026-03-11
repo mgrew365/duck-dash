@@ -29,16 +29,23 @@ Input: None
 Output: 0 on successful termination
 */
 int main() {
+    /* Initialize model*/
     Model model = model_create_initial();
     UINT32 timeThen, timeNow;
     char key;
+    UINT32 elapsed_ticks = 0;
 
-    model.quit = false; 
+    /* Set quit = false*/
+    model.quit = false;
+    
+    /* Render first frame*/
     render(&model, get_video_base()); 
 
     timeThen = get_time();
 
+    /* Main game loop which will be repeated until quit*/
     while (!model.quit) {
+        /* Async events: process input if given */
         if (has_input()) {
             key = get_input();
             if (key == ESC_KEY) {
@@ -48,21 +55,27 @@ int main() {
             }
         }
 
+        /* Sync events: processes on clock ticks*/
         timeNow = get_time();
         if (timeNow != timeThen) {
-            move_duck(&model.duck); 
-            move_buildings(model.buildings, MAX_BUILDINGS);
+            if (timeNow != timeThen) {
+
+            elapsed_ticks++;  /* track number of ticks since start */
+
+            update_duck(&model);  
+            update_buildings(&model);                
+            building_appearance(&model, elapsed_ticks); 
+            speed_increase(&model, elapsed_ticks);   
+            update_score(&model, elapsed_ticks);     
+            }
+
+            /* Cond events */
+            process_cond_events(&model);
             
-            if (duck_building_collision(&model)) {
-                model.quit = true;
-            }
-
-            if (duck_ground_collision(&model.duck)) {
-                model.duck.y = (400 - 40 - 16);
-                model.duck.delta_y = 0;
-            }
-
+            /* Render the next frame */
             render(&model, (UINT32*) get_video_base());
+            
+            /*Update clock*/
             timeThen = timeNow;
         }
     }
