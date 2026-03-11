@@ -8,7 +8,7 @@ File Description: This file defines all synchronous events for Duck Dash which a
                   at each clock tick. These evnts include updating building movement, game speed and score. 
 */
 #include "synch.h"
-#include "cond.c"
+#include "cond.h"
 #define TICKS_PER_SECOND 70
 
 /* Time intervals to increase speed (seconds) */
