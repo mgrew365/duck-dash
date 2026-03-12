@@ -1,6 +1,5 @@
+#include <osbind.h>
 #include "input.h"
-
-
 /* ----- Function: has_input -----
 
 Purpose:
@@ -13,8 +12,7 @@ Output:
 true  → key available
 false → no key
 */
-bool has_input(void)
-{
+bool has_input(void) {
     return (Cconis() != 0);
 }
 
@@ -30,7 +28,6 @@ None
 Output:
 ASCII character of key pressed
 */
-char get_input(void)
-{
+char get_input(void) {
     return (char)Cnecin();
 }
