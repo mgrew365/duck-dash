@@ -1,9 +1,5 @@
 #include "input.h"
 
-/* Atari ST BIOS keyboard functions */
-extern long Cconis(void);
-extern long Cnecin(void);
-
 
 /* ----- Function: has_input -----
 
