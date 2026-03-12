@@ -8,13 +8,17 @@ File Description: Contains the implementation of rendering functions for all the
 play objects. Each of the functions draws a specfic object using the raster graphics.
 
 */
-
+#include <osbind.h>
 #include "renderer.h"
 #include "raster.h"
 
 #define DUCK_HEIGHT 16
 #define BUILDING_HEIGHT 32
 
+
+void* get_video_base(void) {
+    return Physbase();
+}
 
 /*
 Function: render
