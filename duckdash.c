@@ -4,12 +4,10 @@
 #include "asynch.h"
 #include "synch.h"
 #include "cond.h"
+#include <osbind.h>
 
 #define CLOCK_ADDRESS 0x462
 
-/*extern long Super(int level);
-extern void* get_video_base(void);
-*/
 /* ----- Function: get_time -----
 Purpose: Safely reads the TOS 70Hz system clock by entering supervisor mode.
 Input: None
@@ -58,7 +56,6 @@ int main() {
         /* Sync events: processes on clock ticks*/
         timeNow = get_time();
         if (timeNow != timeThen) {
-            if (timeNow != timeThen) {
 
             elapsed_ticks++;  /* track number of ticks since start */
 
@@ -67,7 +64,7 @@ int main() {
             building_appearance(&model, elapsed_ticks); 
             speed_increase(&model, elapsed_ticks);   
             update_score(&model, elapsed_ticks);     
-            }
+            
 
             /* Cond events */
             process_cond_events(&model);
