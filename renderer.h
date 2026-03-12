@@ -18,6 +18,11 @@ to the screen using rasters.
 #include "types.h"
 
 /*
+
+*/
+extern void* get_video_base(void);
+
+/*
 Function: Render
 Purpose: Renders the full frame of the game state at the current state
 of the model.
