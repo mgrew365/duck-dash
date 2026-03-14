@@ -108,7 +108,7 @@ Input: Duck *duck: pointer to Duck object
 
 Output: boolean value: true if duck has reached the maximum jump height, else false
 */
-bool duck_max_height(const Model *model);
+bool duck_max_height(const Duck *duck);
 
 
 /* ----- Function: duck_ground_collision -----
@@ -119,7 +119,7 @@ Input: Duck *duck: pointer to Duck object
 
 Output: boolean value: true if duck has hit the ground, else false
 */
-bool duck_ground_collision(const Model *model);
+bool duck_ground_collision(const Duck *duck);
 
 
 /* ----- Function: restart_game -----
