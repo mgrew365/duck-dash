@@ -1,6 +1,6 @@
-
+#include <osbind.h>
 #include <stdio.h>
-#include "input.H"
+#include "input.h"
 
 void read_key(int key, const Model *model) {
     switch (key)
@@ -13,9 +13,7 @@ void read_key(int key, const Model *model) {
     }
 }
 
-/*
-#include <osbind.h>
-#include "input.h"
+
 /* ----- Function: has_input -----
 
 Purpose:
@@ -28,11 +26,11 @@ Output:
 true  → key available
 false → no key
 */
-/*
+
 bool has_input(void) {
     return (Cconis() != 0);
 }
-*/
+
 
 /* ----- Function: get_input -----
 
@@ -45,8 +43,7 @@ None
 Output:
 ASCII character of key pressed
 */
-/*
+
 char get_input(void) {
     return (char)Cnecin();
 }
-*/
