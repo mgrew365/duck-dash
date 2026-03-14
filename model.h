@@ -46,7 +46,7 @@ typedef struct {
 
 /* BITMAPS*/
 /* 16-bit duck sprite */
-extern const UINT16 duck_bitmap[];
+extern const UINT32 duck_bitmap[];
 
 /* 32-bit building sprite */
 extern const UINT32 building_bitmap[];
