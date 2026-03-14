@@ -42,7 +42,7 @@ Model testDuckDashSnapshot = {
     /* Duck */
     {
         40,     /* x */
-        360,    /* y */
+        344,    /* y */
         0       /* delta_y */
     },
 
