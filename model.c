@@ -71,7 +71,7 @@ Model testDuckDashSnapshot = {
     /* Duck */
     {
         40,     /* x */
-        SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT,    /* y */
+        360,    /* y */
         0       /* delta_y */
     },
 
