@@ -90,4 +90,5 @@ Model model_create_initial();
 
 
 Building model_create_building(void);
+
 #endif
