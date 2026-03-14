@@ -3,7 +3,7 @@ File: TSTRAST.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: March 1, 2026
+Date Modified: March 14, 2026
 File Description: This file is a test driver for the raster graphics library.
                   It verifies the functionality of the routines implemented in raster.c
                   which include clearing the screen, plotting pixels, drawing lines, 
@@ -22,25 +22,41 @@ File Description: This file is a test driver for the raster graphics library.
 
 #define SCREEN_WIDTH  640
 #define SCREEN_HEIGHT 400
-#define DUCK_HEIGHT 16
+#define DUCK_HEIGHT 32
 
-UINT16 duck_bitmap[DUCK_HEIGHT] = {
-    0x0000,
-    0x0060,
-    0x0090,
-    0x0108,
-    0x0104,
-    0x0108,
-    0x0E10,
-    0x0890,
-    0x0910,
-    0x0890,
-    0x0410,
-    0x03E0,
-    0x0000,
-    0x0000,
-    0x0000,
-    0x0000
+const UINT32 duck_bitmap[32] = {
+    0x00000000,
+    0x00000000,
+    0x000FE000,
+    0x000FE000,
+    0x00301800,
+    0x00301800,
+    0x00301800,
+    0x00C0C600,
+    0x00C0C600,
+    0x00C0C600,
+    0x00C00180,
+    0x00C00180,
+    0x00C00180,
+    0x00C00600,
+    0x0F000600,
+    0x0F000600,
+    0x0F000600,
+    0x0C181800,
+    0x0C181800,
+    0x0C181800,
+    0x0C601800,
+    0x0C601800,
+    0x0C601800,
+    0x0C181800,
+    0x0C181800,
+    0x0C181800,
+    0x03001800,
+    0x03001800,
+    0x03001800,
+    0x00FFE000,
+    0x00FFE000,
+    0x00000000
 };
 
 /* Wait for key to be pressed*/
@@ -48,75 +64,78 @@ void wait_key(void) {
     Cnecin();
 }
 
-
 int main() {
-    int r, c;
     void *base = Physbase();
 
-    /*
-    plot_something_1(base, 100, 100);
-    plot_something_2(base, 200, 200);
-    */
-
-    /* clear_screen */
+    /* Clear screen */
     clear_screen((UINT32 *)base);
     wait_key();
 
-    /* plot_pixel*/
+    /* Plot single pixels - corners & out-of-bounds */
     clear_screen((UINT32 *)base);
     plot_pixel((UINT8 *)base, 0, 0);
-    plot_pixel((UINT8 *)base, 0, SCREEN_WIDTH - 1);
-    plot_pixel((UINT8 *)base, SCREEN_HEIGHT - 1, 0);
-    plot_pixel((UINT8 *)base, SCREEN_HEIGHT - 1, SCREEN_WIDTH - 1);
+    plot_pixel((UINT8 *)base, 0, SCREEN_WIDTH-1);
+    plot_pixel((UINT8 *)base, SCREEN_HEIGHT-1, 0);
+    plot_pixel((UINT8 *)base, SCREEN_HEIGHT-1, SCREEN_WIDTH-1);
+    plot_pixel((UINT8 *)base, -5, 10);
+    plot_pixel((UINT8 *)base, 100, SCREEN_WIDTH+10);
     wait_key();
-    
-    /* plot_horizontal_line and vertical_line*/
+
+    /* Horizontal & vertical lines (normal + clipped) */
     clear_screen((UINT32 *)base);
-    plot_horizontal_line((UINT32 *)base, 50, 50, 200);
-    plot_vertical_line((UINT32 *)base, 50, 50, 150);
+    plot_horizontal_line((UINT32 *)base, 50, 50, 100);
+    plot_horizontal_line((UINT32 *)base, 60, -20, 100);
+    plot_horizontal_line((UINT32 *)base, 70, 600, 100);
+    plot_vertical_line((UINT32 *)base, 80, 100, 150);
+    plot_vertical_line((UINT32 *)base, -30, 150, 50);
+    plot_vertical_line((UINT32 *)base, 350, 200, 100);
     wait_key();
 
-    /* plot_line */
+    /* Arbitrary lines (horizontal, vertical, diagonal) */
     clear_screen((UINT32 *)base);
-    plot_line(base, 10, 10, 200, 10);    /* horizontal */
-    plot_line(base, 10, 10, 10, 200);    /* vertical */
-    plot_line(base, 10, 10, 200, 200);   /* diagonal */
-    plot_line(base, 200, 10, 10, 200);   /* diagonal */
+    plot_line((UINT32 *)base, 10, 10, 200, 10);
+    plot_line((UINT32 *)base, 10, 10, 10, 200);
+    plot_line((UINT32 *)base, 10, 10, 200, 200);
+    plot_line((UINT32 *)base, 200, 10, 10, 200);
+    plot_line((UINT32 *)base, -50, -50, 50, 50);
     wait_key();
 
-    /* plot_rectangle and plot_square */
+    /* Rectangles and squares */
     clear_screen((UINT32 *)base);
-    plot_rectangle((UINT32 *)base, 100, 100, 200, 100);
-    plot_square((UINT32 *)base, 350, 100, 80);
+    plot_rectangle((UINT32 *)base, 100, 100, 200, 150);
+    plot_rectangle((UINT32 *)base, -20, 300, 50, 80);
+    plot_square((UINT32 *)base, 300, 500, 100);
+    plot_square((UINT32 *)base, SCREEN_HEIGHT+10, 10, 30);
     wait_key();
 
-
-    /* plot_triangle */
+    /* Triangles - all directions */
     clear_screen((UINT32 *)base);
-    plot_triangle((UINT32 *)base, 250, 200, 60, 40, 0);    
+    plot_triangle((UINT32 *)base, 50, 50, 60, 40, 0);
+    plot_triangle((UINT32 *)base, 50, 150, 60, 40, 1);
+    plot_triangle((UINT32 *)base, 150, 50, 60, 40, 2);
+    plot_triangle((UINT32 *)base, 150, 150, 60, 40, 3);
+    plot_triangle((UINT32 *)base, 100, SCREEN_WIDTH - 60, 100, 80, 0); /* top-left right-angle triangle */
+
     wait_key();
 
-    /* plot 16-bit bitmap */
+    /* 32-bit bitmap (duck) - normal + clipped */
     clear_screen((UINT32 *)base);
-    plot_16bit_bitmap(
-        (UINT16 *)base,     /* screen base */
-        50,                 /* row */
-        50,                 /* col */
-        duck_bitmap,     /* bitmap */
-        DUCK_HEIGHT      /* height */
-    );
+    plot_32bit_bitmap((UINT32 *)base, 100, 100, duck_bitmap, DUCK_HEIGHT);
+    plot_32bit_bitmap((UINT32 *)base, -10, -10, duck_bitmap, DUCK_HEIGHT);
+    plot_32bit_bitmap((UINT32 *)base, SCREEN_HEIGHT-16, SCREEN_WIDTH-16, duck_bitmap, DUCK_HEIGHT);
     wait_key();
 
-    /* plot_character */
+    /* Characters & strings */
     clear_screen((UINT32 *)base);
     plot_character((UINT8 *)base, 100, 100, 'A');
+    plot_character((UINT8 *)base, -5, 50, 'B');
+    plot_string((UINT8 *)base, 200, 200, "HELLO WORLD");
+    plot_string((UINT8 *)base, 395, SCREEN_WIDTH-20, "END");
+    plot_string((UINT8 *)base, 10, SCREEN_WIDTH - (5*8) - 10, "SCORE");
+    plot_string((UINT8 *)base, SCREEN_HEIGHT - 16, SCREEN_WIDTH - (12*8) - 10, "GAME OVER"); 
     wait_key();
 
-    /* plot_string (display SCORE on top right)*/
-    plot_string((UINT8 *)base, 10, SCREEN_WIDTH - (5 * 8) - 10, "SCORE");
-    wait_key();
-    
+    /* Done */
     clear_screen((UINT32 *)base);
     return 0;
-
 }
