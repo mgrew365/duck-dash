@@ -15,13 +15,42 @@ File Description: This file defines the game model and basic movement functions 
 
 /* Leave extra space at the bottom of screen so duck doesnt land on edge of screen, lands on floor */
 #define FLOOR_BUFFER 40
+#define DUCK_HEIGHT 32
 
 /* Sprite Data*/
-const UINT16 duck_bitmap[16] = {
-    0x0000, 0x0060, 0x0090, 0x0108,
-    0x0104, 0x0108, 0x0E10, 0x0890,
-    0x0910, 0x0890, 0x0410, 0x03E0,
-    0x0000, 0x0000, 0x0000, 0x0000
+const UINT32 duck_bitmap[32] = {
+    0x00000000,
+    0x00000000,
+    0x000FE000,
+    0x000FE000,
+    0x00301800,
+    0x00301800,
+    0x00301800,
+    0x00C0C600,
+    0x00C0C600,
+    0x00C0C600,
+    0x00C00180,
+    0x00C00180,
+    0x00C00180,
+    0x00C00600,
+    0x0F000600,
+    0x0F000600,
+    0x0F000600,
+    0x0C181800,
+    0x0C181800,
+    0x0C181800,
+    0x0C601800,
+    0x0C601800,
+    0x0C601800,
+    0x0C181800,
+    0x0C181800,
+    0x0C181800,
+    0x03001800,
+    0x03001800,
+    0x03001800,
+    0x00FFE000,
+    0x00FFE000,
+    0x00000000
 };
 
 /* Temporary Building Bitmap*/
@@ -42,7 +71,7 @@ Model testDuckDashSnapshot = {
     /* Duck */
     {
         40,     /* x */
-        344,    /* y */
+        SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT,    /* y */
         0       /* delta_y */
     },
 
@@ -69,6 +98,9 @@ Output: None
 */
 void move_duck(Duck *duck) {
     duck->y += duck->delta_y;
+
+    if (duck->y > SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT)
+        duck->y = SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT;
 }
 
 
