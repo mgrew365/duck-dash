@@ -12,7 +12,7 @@ play objects. Each of the functions draws a specfic object using the raster grap
 #include "renderer.h"
 #include "raster.h"
 
-#define DUCK_HEIGHT 16
+#define DUCK_HEIGHT 32
 #define BUILDING_HEIGHT 32
 
 
@@ -55,7 +55,7 @@ Output: None/No direct output
 */
 void render_duck(const Duck *duck, UINT32 *base) {
     /* Duck bitmap is 16-bit   */
-    plot_16bit_bitmap((UINT16 *)base, duck->y, duck->x, duck_bitmap, 16);
+    plot_32bit_bitmap((UINT32 *)base, duck->y, duck->x, duck_bitmap, DUCK_HEIGHT);
 }
 
 
