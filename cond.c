@@ -15,30 +15,13 @@ File Description: This file implements all conditional game event functions for 
                     - Game restart conditions
 
 */
-/*
-File: COND.C
-Names: Manroop Grewal, Sarah Fazal
-Instructor: Steve Kalmar
-Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 21, 2026
-File Description: This file implements all conditional game event functions for Duck Dash. These events are used
-                  to check the current game state hence they are boolean values to indicate whether a condition is met.
-
-                  The conditional events include:
-                    - Duck colliding with building
-                    - Duck reaching its maximum jump height
-                    - Duck colliding with ground
-                    - Buildings leaving the screen
-                    - Game restart conditions
-
-*/
 
 #include "cond.h"
 #define SCREEN_WIDTH   640
 #define SCREEN_HEIGHT  400
 #define FLOOR_BUFFER   40      /* duck stands on floor above bottom */
-#define DUCK_WIDTH    16
-#define DUCK_HEIGHT   16
+#define DUCK_WIDTH    32
+#define DUCK_HEIGHT   32
 #define MAX_JUMP_Y    80 
 
 
