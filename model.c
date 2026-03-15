@@ -13,10 +13,6 @@ File Description: This file defines the game model and basic movement functions 
 #include <osbind.h>
 #include "model.h"
 
-/* Leave extra space at the bottom of screen so duck doesnt land on edge of screen, lands on floor */
-#define FLOOR_BUFFER 40
-#define DUCK_HEIGHT 32
-
 /* Sprite Data*/
 const UINT32 duck_bitmap[32] = {
     0x00000000,
