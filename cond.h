@@ -14,6 +14,13 @@ File Description: This header file declares all conditional game events for Duck
 #include "model.h"
 #include "types.h"
 
+#define SCREEN_WIDTH   640
+#define SCREEN_HEIGHT  400
+#define FLOOR_BUFFER   40      /* duck stands on floor above bottom */
+#define DUCK_WIDTH    32
+#define DUCK_HEIGHT   32
+#define MAX_JUMP_Y    80 
+
 
 /* ----- Function: duck_building_collision -----
 

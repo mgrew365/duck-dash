@@ -3,7 +3,7 @@ File: COND.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 21, 2026
+Date Modified: March 15, 2026
 File Description: This file implements all conditional game event functions for Duck Dash. These events are used
                   to check the current game state hence they are boolean values to indicate whether a condition is met.
 
@@ -17,12 +17,6 @@ File Description: This file implements all conditional game event functions for 
 */
 
 #include "cond.h"
-#define SCREEN_WIDTH   640
-#define SCREEN_HEIGHT  400
-#define FLOOR_BUFFER   40      /* duck stands on floor above bottom */
-#define DUCK_WIDTH    32
-#define DUCK_HEIGHT   32
-#define MAX_JUMP_Y    80 
 
 
 /* ----- Function: duck_building_collision -----
@@ -106,6 +100,17 @@ bool restart_game(const Model *model) {
     return false;
 }
 
+
+/* ----- Function: process_cond_events -----
+
+Purpose: Checks for conditional game events based on the current model state,
+         such as collisions/game ending conditions. The model updates accordingly.
+
+Input: Model *model: pointer to current game state
+
+Output: None
+
+*/
 void process_cond_events(Model *model) {
     int i;
     if (duck_max_height(&model->duck)) {
