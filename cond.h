@@ -3,7 +3,7 @@ File: COND.H
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 21, 2026
+Date Modified: March 15, 2026
 File Description: This header file declares all conditional game events for Duck Dash.
                   The functions in this file are implemented in cond.c to check current game state.
 */
@@ -76,7 +76,14 @@ Output: boolean value: boolean value: true if the game has ended and should be r
 */
 bool restart_game(const Model *model);
 
-/*
+/* ----- Function: process_cond_events -----
+
+Purpose: Checks for conditional game events based on the current model state,
+         such as collisions/game ending conditions. The model updates accordingly.
+
+Input: Model *model: pointer to current game state
+
+Output: None
 
 */
 void process_cond_events(Model *model);  
