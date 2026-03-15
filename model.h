@@ -3,7 +3,7 @@ File: MODEL.H
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: March 1, 2026
+Date Modified: March 15, 2026
 File Description: This file defines the main data structures and function prototypes for the Duck
                   Dash game model. It includes definitions for Duck and Building objects, the main Model
                   structure containing the duck, buildings and score, and prototypes for functions that
@@ -17,6 +17,9 @@ File Description: This file defines the main data structures and function protot
 #define SCREEN_WIDTH  640
 #define SCREEN_HEIGHT 400
 #define MAX_BUILDINGS  4
+#define DUCK_HEIGHT 32
+/* Leave extra space at the bottom of screen so duck doesnt land on edge of screen, lands on floor */
+#define FLOOR_BUFFER 40
 
 #include "types.h"
 
