@@ -1,11 +1,11 @@
 /*
-File: DUCKDASH.C
+File: DUCKDASH.H
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 3 - COMP 2659 
 Date Modified: March 15, 2026
 File Description: Declares helper functions that are implemented in duckdash.c.
-                  SPecifically, for timer and screen buffering.
+                  Specifically, for timer and screen buffering.
 */
 
 #ifndef DUCKDASH_H
