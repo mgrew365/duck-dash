@@ -3,7 +3,7 @@ File: SYNCH.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 22, 2026
+Date Modified: March 15, 2026
 File Description: This file defines all synchronous events for Duck Dash which are events that occur regularly
                   at each clock tick. These evnts include updating building movement, game speed and score. 
 */
@@ -18,7 +18,7 @@ File Description: This file defines all synchronous events for Duck Dash which a
 #define GRAVITY 1
 #define FLOOR_BUFFER 40
 #define SCREEN_HEIGHT 400
-#define DUCK_HEIGHT 16
+#define DUCK_HEIGHT 32
 
 /* ----- Function: building_appearence -----
 
@@ -87,7 +87,7 @@ Input: Model *model
 Output: None
 */
 void update_duck(Model *model) {
-    int ground_y = SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT;
+    int ground_y = 360;
 
     /* Apply vertical velocity */
     model->duck.y += model->duck.delta_y;
@@ -96,15 +96,13 @@ void update_duck(Model *model) {
     model->duck.delta_y += GRAVITY;
 
     /* Prevent going above screen */
-    if (model->duck.y < 0)
-    {
+    if (model->duck.y < 0) {
         model->duck.y = 0;
         model->duck.delta_y = 0;
     }
 
     /* Ground collision */
-    if (model->duck.y >= ground_y)
-    {
+    if (model->duck.y >= ground_y) {
         model->duck.y = ground_y;
         model->duck.delta_y = 0;
     }
