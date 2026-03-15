@@ -2,19 +2,6 @@
 #include <stdio.h>
 #include "input.h"
 
-void read_key(int key, Model *model) {
-    switch (key)
-    {
-    case 'w':
-    case 'W':
-        move_duck(&(model->duck));
-        break;
-    default:
-        break;
-    }
-}
-
-
 /* ----- Function: has_input -----
 
 Purpose:

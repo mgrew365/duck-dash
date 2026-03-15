@@ -15,8 +15,6 @@ File Description: This header file defines constants and function prototypes
 #include "types.h"
 #include "events.h"
 
-void read_key(int key, const Model *model);
-
 
 /* Key Constants */
 

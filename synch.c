@@ -15,6 +15,10 @@ File Description: This file defines all synchronous events for Duck Dash which a
 #define SPEED_UP_1 20
 #define SPEED_UP_2 40
 #define SPEED_UP_3 80
+#define GRAVITY 1
+#define FLOOR_BUFFER 40
+#define SCREEN_HEIGHT 400
+#define DUCK_HEIGHT 16
 
 /* ----- Function: building_appearence -----
 
@@ -83,17 +87,26 @@ Input: Model *model
 Output: None
 */
 void update_duck(Model *model) {
-    /* move duck */
+    int ground_y = SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT;
+
+    /* Apply vertical velocity */
     model->duck.y += model->duck.delta_y;
 
-    /* reached maximum jump height */
-    if (duck_max_height(&model->duck)) {
-        model->duck.delta_y = 4;   /* start descending */
+    /* Apply gravity */
+    model->duck.delta_y += GRAVITY;
+
+    /* Prevent going above screen */
+    if (model->duck.y < 0)
+    {
+        model->duck.y = 0;
+        model->duck.delta_y = 0;
     }
 
-    /* reached ground */
-    if (duck_ground_collision(&model->duck)) {
-        model->duck.delta_y = 0;   /* stop movement */
+    /* Ground collision */
+    if (model->duck.y >= ground_y)
+    {
+        model->duck.y = ground_y;
+        model->duck.delta_y = 0;
     }
 }
 
