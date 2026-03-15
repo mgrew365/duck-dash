@@ -7,6 +7,10 @@
 #include <osbind.h>
 
 #define CLOCK_ADDRESS 0x462
+#define SCREEN_SIZE 32000
+
+UINT32 screen_buffer[SCREEN_SIZE / 4];
+
 
 /* ----- Function: get_time -----
 Purpose: Safely reads the TOS 70Hz system clock by entering supervisor mode.
@@ -21,6 +25,13 @@ UINT32 get_time() {
     return time;
 }
 
+void copy_buffer(UINT32 *src, UINT32 *dst) {
+    int i;
+    for (i = 0; i < SCREEN_SIZE / 4; i++) {
+        dst[i] = src[i];
+    }
+}
+
 /* ----- Function: main -----
 Purpose: Entry point of the game. Initializes state and runs the main loop.
 Input: None
@@ -32,12 +43,16 @@ int main() {
     UINT32 timeThen, timeNow;
     char key;
     UINT32 elapsed_ticks = 0;
+    UINT32 *video_base = (UINT32 *)get_video_base();
 
     /* Set quit = false*/
     model.quit = false;
     
-    /* Render first frame*/
+    /* Render first frame
     render(&model, get_video_base()); 
+*/
+    render(&model, screen_buffer);
+    copy_buffer(screen_buffer, video_base);
 
     timeThen = get_time();
 
@@ -69,9 +84,14 @@ int main() {
             /* Cond events */
             process_cond_events(&model);
             
-            /* Render the next frame */
+            /* Render the next frame 
             render(&model, (UINT32*) get_video_base());
-            
+            */
+
+            render(&model, screen_buffer);
+            copy_buffer(screen_buffer, video_base);
+
+
             /*Update clock*/
             timeThen = timeNow;
         }
