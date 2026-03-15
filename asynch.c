@@ -14,7 +14,6 @@ File Description: This module defines asynchronous game events for Duck Dash whi
 */
 
 #include "asynch.h"
-
 /* ----- Function: duck_jump -----
 
 Purpose: This function is the asynchronous event being when the duck jumps (when the up key is pressed by a user)
@@ -25,11 +24,13 @@ Input: Model *model: A pointer to the game's current model which is used to modi
 Output: None
 */
 void duck_jump(Model *model) {
-    /* Only jump if duck is not already moving upward */
-    if (model->duck.delta_y >= 0) {
-        model->duck.delta_y = -8;   /* jump strength (change as need be) */
+    int ground_y = 360;
+
+    if (model->duck.y == ground_y && model->duck.delta_y == 0) {
+        model->duck.delta_y = -8;
     }
 }
+
 
 
 /* ----- Function: quit_game -----
