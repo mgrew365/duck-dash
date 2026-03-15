@@ -3,7 +3,7 @@ File: MODEL.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: March 1, 2026
+Date Modified: March 15, 2026
 File Description: This file defines the game model and basic movement functions required for Duck Dash.
                   It includes a test snapshot of the intial game state for testing purposes,
                   fucntions to move the duck and buildings during gameplay and a function to create
@@ -98,9 +98,16 @@ Output: None
 */
 void move_duck(Duck *duck) {
     duck->y += duck->delta_y;
+    duck->delta_y += 1;
 
-    if (duck->y > SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT)
+    if (duck->y >= SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT) {
         duck->y = SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT;
+        duck->delta_y = 0;
+    }
+
+    if (duck->y < 0) {
+        duck->y = 0;
+    }
 }
 
 
