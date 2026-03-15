@@ -1,3 +1,15 @@
+/*
+File: DUCKDASH.C
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 3 - COMP 2659 
+Date Modified: March 15, 2026
+File Description: Contains the main game loop for DuckDash. This file handles
+                  initialization, timing, input processing, model updates,
+                  conditional event processing, rendering, and buffer copying.
+*/
+
+#include "duckdash.h"
 #include "model.h"
 #include "renderer.h"
 #include "input.h"
@@ -11,10 +23,11 @@
 
 UINT32 screen_buffer[SCREEN_SIZE / 4];
 
-
-/* ----- Function: get_time -----
+/*----- Function: get_time -----
 Purpose: Safely reads the TOS 70Hz system clock by entering supervisor mode.
+
 Input: None
+
 Output: Current value of the system clock (UINT32)
 */
 UINT32 get_time() {
@@ -25,6 +38,16 @@ UINT32 get_time() {
     return time;
 }
 
+
+/* ----- Function: copy_buffer -----
+Purpose: Copies the contents of the source screen buffer into the destination
+         screen buffer for rendering.
+
+Input: src (UINT32*): pointer to the source buffer
+       dst (UINT32*): pointer to the destination buffer
+
+Output: None
+*/
 void copy_buffer(UINT32 *src, UINT32 *dst) {
     int i;
     for (i = 0; i < SCREEN_SIZE / 4; i++) {
@@ -34,7 +57,9 @@ void copy_buffer(UINT32 *src, UINT32 *dst) {
 
 /* ----- Function: main -----
 Purpose: Entry point of the game. Initializes state and runs the main loop.
+
 Input: None
+
 Output: 0 on successful termination
 */
 int main() {
@@ -44,15 +69,14 @@ int main() {
     char key;
     UINT32 elapsed_ticks = 0;
     UINT32 *video_base = (UINT32 *)get_video_base();
-
-    /* Set quit = false*/
-    model.quit = false;
     
-    /* Render first frame
-    render(&model, get_video_base()); 
-*/
+    /* Render model (first frame)*/
     render(&model, screen_buffer);
     copy_buffer(screen_buffer, video_base);
+
+    
+    /* Set quit = false*/
+    model.quit = false;
 
     timeThen = get_time();
 
@@ -83,19 +107,14 @@ int main() {
 
             /* Cond events */
             process_cond_events(&model);
-            
-            /* Render the next frame 
-            render(&model, (UINT32*) get_video_base());
-            */
 
+            /* Render model (next frame)*/
             render(&model, screen_buffer);
             copy_buffer(screen_buffer, video_base);
-
 
             /*Update clock*/
             timeThen = timeNow;
         }
     }
-
     return 0;
 }
