@@ -3,7 +3,7 @@ File: ASYNCH.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: February 22, 2026
+Date Modified: March 15, 2026
 File Description: This module defines asynchronous game events for Duck Dash which these events
                   are the outcome of user input. For example, when a key is pressed,game state is modified
                   which is independent of the game clock
@@ -24,10 +24,10 @@ Input: Model *model: A pointer to the game's current model which is used to modi
 Output: None
 */
 void duck_jump(Model *model) {
-    int ground_y = 360;
+    int ground_y = 328;
 
-    if (model->duck.y == ground_y && model->duck.delta_y == 0) {
-        model->duck.delta_y = -8;
+    if (model->duck.y >= ground_y) {
+        model->duck.delta_y = -12;
     }
 }
 
