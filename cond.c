@@ -28,27 +28,29 @@ Input: Model *model: A pointer to the game's current model
 Output: boolean value: true if collision occurs, else false
 */
 bool duck_building_collision(const Model *model) {
-    unsigned int i;
+    int i;
 
-    unsigned int duck_left = model->duck.x;
-    unsigned int duck_right = model->duck.x + DUCK_WIDTH;
-    unsigned int duck_top = model->duck.y;
-    unsigned int duck_bottom = model->duck.y + DUCK_HEIGHT;
+    int duck_left = model->duck.x;
+    int duck_right = model->duck.x + DUCK_WIDTH;
+    int duck_top = model->duck.y;
+    int duck_bottom = model->duck.y + DUCK_HEIGHT;
 
     for (i = 0; i < MAX_BUILDINGS; i++) {
-        unsigned int b_left = model->buildings[i].x;
-        unsigned int b_right = model->buildings[i].x + model->buildings[i].width;
-        unsigned int b_top = model->buildings[i].y;
-        unsigned int b_bottom = model->buildings[i].y + model->buildings[i].height;
+        int b_left = model->buildings[i].x;
+        int b_right = model->buildings[i].x + model->buildings[i].width;
+        int b_top = model->buildings[i].y;
+        int b_bottom = model->buildings[i].y + model->buildings[i].height;
 
-        if (duck_right > b_left  && duck_left < b_right && duck_bottom > b_top && duck_top < b_bottom) {
+        if (duck_right > b_left &&
+            duck_left < b_right &&
+            duck_bottom > b_top &&
+            duck_top < b_bottom) {
             return true;
         }
     }
 
     return false;
 }
-
 /* ----- Function: building_left_border -----
 
 Purpose: This function checks if the building has collided with the left border of the screen to then be removed from the screen
@@ -113,14 +115,14 @@ Output: None
 */
 void process_cond_events(Model *model) {
     int i;
-    if (duck_max_height(&model->duck)) {
-        model->duck.delta_y = 1; 
+
+    if (duck_building_collision(model)) {
+        model->quit = true;
     }
 
     for (i = 0; i < MAX_BUILDINGS; i++) {
         if (building_left_border(&model->buildings[i])) {
-            model->buildings[i] = model_create_building(); 
+            model->buildings[i] = model_create_building();
         }
     }
-
 }
