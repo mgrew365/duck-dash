@@ -39,6 +39,7 @@ Output: None
 */
 void render(const Model *model, UINT32 *base) {
     int i;
+    char score_text[20];
     
     /* Clear the screen  */
     clear_screen(base);
@@ -52,9 +53,9 @@ void render(const Model *model, UINT32 *base) {
     }
 
     /* Render Score  */
-    plot_string((UINT8 *)base, 10, 10, "SCORE: 0"); 
+    sprintf(score_text, "SCORE: %d", model->score);
+    plot_string((UINT8 *)base, 10, 10, score_text);
 }
-
 
 
 /* ----- Function: render_duck -----
