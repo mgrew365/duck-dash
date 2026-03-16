@@ -87,7 +87,7 @@ Input: Model *model
 Output: None
 */
 void update_duck(Model *model) {
-    int ground_y = 360;
+    int ground_y = 328;
 
     /* Apply vertical velocity */
     model->duck.y += model->duck.delta_y;
