@@ -85,10 +85,17 @@ int main() {
         /* Async events: process input if given */
         if (has_input()) {
             key = get_input();
+
+            /* clear extra buffered keys */
+            while (has_input()) {
+                get_input();
+            }
+
             if (key == ESC_KEY) {
                 quit_game(&model);
-            } else if (key == SPACE_BAR) {
-                duck_jump(&model);
+            }
+            else if (key == SPACE_BAR) {
+            duck_jump(&model);
             }
         }
 
