@@ -92,6 +92,18 @@ Output: Model object which contains initial duck, building position, and score
 Model model_create_initial();
 
 
+/* ----- Function: model_create_building -----
+
+Purpose: Creates and returns a new building with its starting position,
+         size, and movement values initialized. The building is placed at
+         the right side of the screen and aligned with the ground so it can
+         move left across the screen as an obstacle.
+
+Input: None
+
+Output: Building object with initialized x/y position, width, height,
+        and horizontal movement
+*/
 Building model_create_building(void);
 
 #endif
