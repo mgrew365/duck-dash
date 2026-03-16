@@ -27,7 +27,7 @@ void duck_jump(Model *model) {
     int ground_y = 328;
 
     if (model->duck.y >= ground_y) {
-        model->duck.delta_y = -12;
+        model->duck.delta_y = -20;
     }
 }
 
