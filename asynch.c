@@ -24,10 +24,11 @@ Input: Model *model: A pointer to the game's current model which is used to modi
 Output: None
 */
 void duck_jump(Model *model) {
-    int ground_y = 328;
+    int ground_y = SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT;
 
+    /* Only jump if duck is on the ground */
     if (model->duck.y >= ground_y) {
-        model->duck.delta_y = -20;
+        model->duck.delta_y = -20;   /* jump strength */
     }
 }
 
