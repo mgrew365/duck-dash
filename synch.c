@@ -74,7 +74,7 @@ Input: Model *model: A pointer to the game's current model
 Output: None
 */
 void update_score(Model *model, unsigned int elapsed_ticks) {
-    model->score = elapsed_ticks / TICKS_PER_SECOND;
+    model->score = elapsed_ticks / 5;
 }
 
 /* ----- Function: update_duck -----
