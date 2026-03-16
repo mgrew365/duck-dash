@@ -110,6 +110,7 @@ int main() {
             building_appearance(&model, elapsed_ticks); 
             speed_increase(&model, elapsed_ticks);   
             update_score(&model, elapsed_ticks);     
+            model.score++;
             
 
             /* Cond events */
