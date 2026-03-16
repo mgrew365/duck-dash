@@ -67,16 +67,16 @@ Model testDuckDashSnapshot = {
     /* Duck */
     {
         40,     /* x */
-        360,    /* y */
+        328,    /* y */
         0       /* delta_y */
     },
 
     /* Buildings */
     {
-        { 200, 360, -2, 32, 32 },
-        { 300, 360, -2, 32, 32 },
-        { 400, 360, -2, 32, 32 },
-        { 500, 360, -2, 32, 32 }
+        { 200, 328, -2, 32, 32 },
+        { 300, 328, -2, 32, 32 },
+        { 400, 328, -2, 32, 32 },
+        { 500, 328, -2, 32, 32 }
     },
 
     /* Score */
@@ -137,20 +137,33 @@ Model model_create_initial() {
     return testDuckDashSnapshot;
 }
 
+/* ----- Function: model_create_building -----
+
+Purpose: Creates and returns a new building with its starting position,
+         size, and movement values initialized. The building is placed at
+         the right side of the screen and aligned with the ground so it can
+         move left across the screen as an obstacle.
+
+Input: None
+
+Output: Building object with initialized x/y position, width, height,
+        and horizontal movement
+*/
 Building model_create_building(void) {
-    static int next_height = 32;   
+    static int next_height = 32;
     Building b;
 
-    b.width = 32;                   
-    b.height = next_height;         
+    b.width = 32;
+    b.height = next_height;
+    b.delta_x = -2;
 
     next_height += 16;
     if (next_height > 64) {
         next_height = 32;
     }
 
-    b.x = 640;                      
-    b.y = 400 - 40 - b.height;      
+    b.x = 640;
+    b.y = SCREEN_HEIGHT - FLOOR_BUFFER - b.height;
 
     return b;
 }
