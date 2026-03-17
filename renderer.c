@@ -28,6 +28,40 @@ void* get_video_base(void) {
     return Physbase();
 }
 
+
+/* ----- Function: int_to_string -----
+
+Purpose: Converts an unsigned integer into a null-terminated string.
+         
+Input: num (unsigned int): the number to convert
+       str (char *): character array where the resulting string will be stored
+
+Output: None (the result is stored in the provided character array)
+*/
+void int_to_string(unsigned int num, char *str) {
+    int i = 0, j;
+    char temp;
+
+    if (num == 0) {
+        str[0] = '0';
+        str[1] = '\0';
+        return;
+    }
+
+    while (num > 0) {
+        str[i++] = (num % 10) + '0';
+        num /= 10;
+    }
+
+    str[i] = '\0';
+
+    for (j = 0; j < i / 2; j++) {
+        temp = str[j];
+        str[j] = str[i - j - 1];
+        str[i - j - 1] = temp;
+    }
+}
+
 /* ----- Function: render -----
 
 Purpose: draws the complete frame by cearing the screen and rendering all objects.
@@ -39,8 +73,8 @@ Output: None
 */
 void render(const Model *model, UINT32 *base) {
     int i;
-    char score_text[20];
-    
+    char number[10];
+
     /* Clear the screen  */
     clear_screen(base);
 
@@ -53,10 +87,15 @@ void render(const Model *model, UINT32 *base) {
     }
 
     /* Render Score  */
-    sprintf(score_text, "SCORE: %d", model->score);
-    plot_string((UINT8 *)base, 10, 10, score_text);
-}
+    /* Convert score */
+    int_to_string(model->score, number);
 
+    /* Draw label */
+    plot_string((UINT8 *)base, 10, 10, "SCORE: ");
+
+    /* Draw number right after */
+    plot_string((UINT8 *)base, 10, 10 + (8 * 7), number);
+}
 
 /* ----- Function: render_duck -----
 
