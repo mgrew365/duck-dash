@@ -27,6 +27,18 @@ Output: Pointer to the base address of video memory
 */
 extern void* get_video_base(void);
 
+
+/* ----- Function: int_to_string -----
+
+Purpose: Converts an unsigned integer into a null-terminated string.
+         
+Input: num (unsigned int): the number to convert
+       str (char *): character array where the resulting string will be stored
+
+Output: None (the result is stored in the provided character array)
+*/
+void int_to_string(unsigned int num, char *str);
+
 /* ----- Function: render -----
 
 Purpose: draws the complete frame by cearing the screen and rendering all objects.
