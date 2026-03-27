@@ -2,8 +2,7 @@
 #define MUSIC_H
 
 #include "psg.h"
-
-typedef unsigned long UINT32;
+#include "types.h"
 
 void start_music(void);
 
