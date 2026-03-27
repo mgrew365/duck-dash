@@ -1,8 +1,7 @@
 #ifndef PSG_H
 #define PSG_H
 
-typedef unsigned char UINT8;
-
+#include "types.h"
 void write_psg(int reg, UINT8 val);
 
 UINT8 read_psg(int reg);
