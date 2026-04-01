@@ -62,7 +62,20 @@ UINT16 capitalC[] = {
 };
 
 UINT16 capitalK[] = {
-
+    0x0000,
+    0x6010,
+    0x6030,
+    0x6060,
+    0x60C0,
+    0x6180,
+    0x6300,
+    0x7E00,
+    0x7E00,
+    0x6300,
+    0x6180,
+    0x60C0,
+    0x6060,
+    0x6030
 };
 
 int startScreen(UINT8 *base)
@@ -73,7 +86,7 @@ int startScreen(UINT8 *base)
     int result = 0;
     int i;
 
-    initSplash(base);
+    initilizeSplashScreen(base);
 
     input = 0;
     while (selection == 0)
