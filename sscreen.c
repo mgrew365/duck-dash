@@ -184,4 +184,9 @@ void initilizeSplashScreen(UINT8 *base) {
     plot_16bit_bitmap(base, 50, 90, capitalC, 16);
     plot_16bit_bitmap(base, 50, 110, capitalK, 16);
 
+    plot_16bit_bitmap(base, 50, 150, capitalD, 16);
+    plot_16bit_bitmap(base, 50, 170, capitalA, 16);
+    plot_16bit_bitmap(base, 50, 190, capitalS, 16);
+    plot_16bit_bitmap(base, 50, 210, capitalH, 16);
+
 }
