@@ -4,6 +4,6 @@
 #include "font.c"
 
 int startScreen(UINT8 *base);
-int initilizeSplashScreen(UINT8 *base);
+void initilizeSplashScreen(UINT8 *base);
 
 #endif

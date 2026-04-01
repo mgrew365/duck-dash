@@ -114,3 +114,12 @@ int startScreen(UINT8 *base)
     }
     return selection;
 }
+
+void initilizeSplashScreen(UINT8 *base) {
+    char *one_player = "Single Player (1)";
+    char *two_player = "Two Player (2)";
+    char *quit_game = "Quit Game (3)";
+
+    clearScreen(base);
+
+}
