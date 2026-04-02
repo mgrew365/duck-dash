@@ -2,7 +2,7 @@
 File: SSCREEN.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
-Assignment: Checkpoint 2 - COMP 2659 
+Assignment: Checkpoint 4 - COMP 2659 
 Date Modified: April 2, 2026
 File Description: This is handles a splash screen for Duck Dash.
                   This includes redering, drawing the title, menu 

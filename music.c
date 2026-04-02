@@ -1,3 +1,14 @@
+/*
+File: MUSIC.C
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 4 - COMP 2659 
+Date Modified: April 2, 2026
+File Description: Implements the game music using the Yamaha PSG chip.
+                  It handles melody, bass, and rhythm sequencing and updates
+                  sound output over gameplay.
+*/
+
 #include "psg.h"
 #include "music.h"
 
@@ -6,7 +17,7 @@ typedef struct {
     int duration;
 } Note;
 
-/* MELODY (Channel A)  */
+/* MELODY (Channel A) */
 Note melody[] = {
     {600,2},{700,2},{800,2},{700,2},
     {750,2},{700,2},{600,3},{0,1},
@@ -15,13 +26,13 @@ Note melody[] = {
     {800,2},{700,2},{600,3},{0,1}
 };
 
-/* BASS (Channel B) */
+/* BASS (Channel B)  */
 Note bass[] = {
     {1000,4},{900,4},{800,4},{900,4},
     {1000,4},{900,4},{800,4},{900,4}
 };
 
-/* RHYTHM (Channel C) — fast ticks */
+/* RHYTHM (Channel C) */
 Note rhythm[] = {
     {1,1},{0,1},{1,1},{0,1},
     {1,1},{0,1},{1,1},{0,1}
@@ -33,7 +44,15 @@ int r_index = 0;
 
 UINT32 last_time = 0;
 
-/* START MUSIC */
+/* ----- Function: start_music -----
+
+Purpose: Initializes and starts the background music by resetting
+         all channel indices, configuring PSG channels, and setting initial tones.
+
+Input: None
+
+Output: None
+*/
 void start_music() {
 
     m_index = b_index = r_index = 0;
@@ -51,7 +70,15 @@ void start_music() {
     set_tone(1, bass[0].tone);
 }
 
-/* UPDATE MUSIC */
+/* ----- Function: update_music -----
+
+Purpose: Updates the music over time by advancing melody,
+         bass, and rhythm patterns based on elapsed time.
+
+Input: UINT32 time_elapsed: Current system time used to control music timing
+
+Output: None
+*/
 void update_music(UINT32 time_elapsed) {
 
     int speed = 1;
@@ -86,6 +113,14 @@ void update_music(UINT32 time_elapsed) {
     }
 }
 
+/* ----- Function: stop_music -----
+
+Purpose: Stops all sound output by disabling audio channels.
+
+Input: None
+
+Output: None
+*/
 void stop_music() {
     stop_sound();
 }

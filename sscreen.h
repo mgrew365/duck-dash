@@ -2,7 +2,7 @@
 File: SSCREEN.H
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
-Assignment: Checkpoint 2 - COMP 2659 
+Assignment: Checkpoint 4 - COMP 2659 
 Date Modified: April 2, 2026
 File Description: This is a header file that declares the functions implemented in sscreen.c                 
 */

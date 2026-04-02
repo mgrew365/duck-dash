@@ -1,3 +1,12 @@
+/*
+File: MUSIC.H
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 4 - COMP 2659 
+Date Modified: April 2, 2026
+File Description: A header file that is implemented in music.c
+*/
+
 #ifndef MUSIC_H
 #define MUSIC_H
 
