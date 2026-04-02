@@ -15,6 +15,7 @@ File Description: Contains the main game loop for DuckDash. This file handles
 #include "asynch.h"
 #include "synch.h"
 #include "cond.h"
+#include "sscreen.h"
 #include <osbind.h>
 
 #define CLOCK_ADDRESS 0x462
@@ -53,14 +54,9 @@ void wait_for_vbl() {
     Super(old_ssp);
 }
 
-/* ----- Function: main -----
-Purpose: Entry point of the game. Initializes state and runs the main loop.
 
-Input: None
-
-Output: 0 on successful termination
-*/
-int main() {
+void run_game()
+{
     Model model = model_create_initial();
 
     UINT32 timeThen, timeNow;
@@ -71,21 +67,14 @@ int main() {
     UINT32 *back;
     UINT32 *temp;
 
-    /* C89 variable declarations */
-    int max_updates;
-    int updates;
-    int updated;
+    /* ===== initialize model ===== */
+    model.quit = false;
 
-    /* -------- ALIGN BUFFERS -------- */
-    buffer1 = (UINT32 *)(((long)raw_buffer1 + 255) & ~255);
-    buffer2 = (UINT32 *)(((long)raw_buffer2 + 255) & ~255);
-
+    /* ===== buffer setup ===== */
     front = buffer1;
     back  = buffer2;
 
-    model.quit = false;
-
-    /* -------- INITIAL FRAME -------- */
+    /* ===== render first frame ===== */
     render(&model, back);
     wait_for_vbl();
     Setscreen(back, back, -1);
@@ -96,62 +85,76 @@ int main() {
 
     timeThen = get_time();
 
-    /* -------- MAIN LOOP -------- */
-    while (!model.quit) {
-
-        /* -------- INPUT -------- */
-        if (has_input()) {
+    /* ===== main game loop ===== */
+    while (!model.quit)
+    {
+        /* ===== ASYNC INPUT ===== */
+        if (has_input())
+        {
             key = get_input();
+            while (has_input()) get_input();
 
-            while (has_input()) {
-                get_input();
-            }
-
-            if (key == ESC_KEY) {
+            /* process async event */
+            if (key == ESC_KEY)
                 quit_game(&model);
-            }
-            else if (key == SPACE_BAR) {
+            else if (key == SPACE_BAR)
                 duck_jump(&model);
-            }
         }
 
-        /* -------- TIMING -------- */
+        /* ===== CLOCK CHECK ===== */
         timeNow = get_time();
 
-        max_updates = 2;
-        updates = 0;
-        updated = 0;
-
-        while (timeNow > timeThen && updates < max_updates) {
-
+        if (timeNow > timeThen)
+        {
             elapsed_ticks++;
 
+            /* ===== SYNC EVENTS ===== */
             update_duck(&model);
             update_buildings(&model);
+
+            /* ===== CONDITIONAL EVENTS ===== */
             building_appearance(&model, elapsed_ticks);
             speed_increase(&model, elapsed_ticks);
             update_score(&model, elapsed_ticks);
-
             process_cond_events(&model);
 
-            timeThen++;
-            updates++;
-            updated = 1;
-        }
+            timeThen = timeNow;
 
-        /* -------- RENDER -------- */
-        if (updated) {
+            /* ===== RENDER NEXT FRAME ===== */
             render(&model, back);
-
             wait_for_vbl();
-
             Setscreen(back, back, -1);
 
-            /* swap buffers */
             temp = front;
             front = back;
             back = temp;
         }
+    }
+}
+
+
+int main()
+{
+    UINT32 *base;
+    int choice;
+
+    /* ALIGN BUFFERS */
+    buffer1 = (UINT32 *)(((long)raw_buffer1 + 255) & ~255);
+    buffer2 = (UINT32 *)(((long)raw_buffer2 + 255) & ~255);
+
+    base = (UINT32 *)Physbase();
+
+    /* ===== MAIN PROGRAM LOOP ===== */
+    while (1)
+    {
+        /* splash screen */
+        choice = run_splash_screen(base);
+
+        if (choice == 0)
+            break;
+
+        /* run game */
+        run_game();
     }
 
     return 0;

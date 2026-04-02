@@ -3,7 +3,7 @@ File: RASTER.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 2 - COMP 2659 
-Date Modified: March 1, 2026
+Date Modified: March 31, 2026
 File Description: This file implements a raster graphics library in which the routines 
                   plot images including pixels, lines, bitmaps, etc. 
 */

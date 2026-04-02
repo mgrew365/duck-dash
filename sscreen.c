@@ -1,9 +1,21 @@
+/*
+File: SSCREEN.C
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 2 - COMP 2659 
+Date Modified: April 2, 2026
+File Description: This is handles a splash screen for Duck Dash.
+                  This includes redering, drawing the title, menu 
+                  buttons, and handling user input for menu selection.
+                  The user has a choice to play the game by pressing 1 key 
+                  or quitting the game using ESC key.    
+*/
 #include <stdio.h>
 #include "sscreen.h"
 #include "raster.h"
 #include "font.h"
 
-/* ===== BITMAPS ===== */
+/* BITMAPS */
 
 UINT16 capitalD[] = {
     0xFFF8, 0xFFFC, 0xFFFE, 0xF01F,
@@ -54,9 +66,17 @@ UINT16 capitalH[] = {
     0x6006, 0x6006, 0x6006, 0x0000
 };
 
-/* ===== FUNCTION ===== */
+/* ----- Function: initilize_splash_screen -----
 
-void initilizeSplashScreen(UINT32 *base) {
+Purpose: Renders the splash screen graphics to the screen, including
+         the game title ("DUCK DASH") and menu buttons for user
+         input.
+
+Input: UINT32 *base: pointer to the base of the screen memory
+
+Output: None
+*/
+void initilize_splash_screen(UINT32 *base) {
     clear_screen(base);
 
     /* DUCK */
@@ -80,4 +100,38 @@ void initilizeSplashScreen(UINT32 *base) {
     /* Center text inside boxes */
     plot_string((UINT8 *)base, 155, 90, "1-Player (1)");
     plot_string((UINT8 *)base, 215, 80, "Quit Game (ESC)");
+}
+
+/* ----- Function: run_splash_screen -----
+
+Purpose: Displays the splash screen and waits for user input to 
+         select a menu option. Handles keyboard input for menu navigation.
+
+Input: UINT32 *base: pointer to the base of the screen memory
+
+Output: int:
+        1 → user selected "1 Player"
+        0 → user selected "Quit" (ESC key)
+*/
+int run_splash_screen(UINT32 *base) {
+    char key = 0;
+
+    initilize_splash_screen(base);
+
+    while (1)
+    {
+        if (has_input())
+        {
+            key = get_input();
+
+            /* clear extra inputs */
+            while (has_input()) get_input();
+
+            if (key == '1')
+                return 1;   /* start game */
+
+            if (key == ESC_KEY)
+                return 0;   /* quit */
+        }
+    }
 }
