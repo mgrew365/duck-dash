@@ -2,7 +2,7 @@
 File: TSTSPLA.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
-Assignment: Checkpoint 2 - COMP 2659 
+Assignment: Checkpoint 4 - COMP 2659 
 Date Modified: April 2, 2026
 File Description: This file is used to test the splash game before implementing
                   it in duckdash.c (main game).
