@@ -56,8 +56,7 @@ UINT16 capitalH[] = {
 
 /* ===== FUNCTION ===== */
 
-void initilizeSplashScreen(UINT32 *base)
-{
+void initilizeSplashScreen(UINT32 *base) {
     clear_screen(base);
 
     /* DUCK */
@@ -71,4 +70,14 @@ void initilizeSplashScreen(UINT32 *base)
     plot_16bit_bitmap((UINT16 *) base, 50, 350, capitalA, 16);
     plot_16bit_bitmap((UINT16 *) base, 50, 400, capitalS, 16);
     plot_16bit_bitmap((UINT16 *) base, 50, 450, capitalH, 16);
+
+    /* 1 player box */
+    plot_rectangle(base, 140, 60, 40, 200);
+
+    /* Quit Game box */
+    plot_rectangle(base, 200, 60, 40, 200);
+
+    /* Center text inside boxes */
+    plot_string((UINT8 *)base, 155, 90, "1-Player (1)");
+    plot_string((UINT8 *)base, 215, 80, "Quit Game (ESC)");
 }
