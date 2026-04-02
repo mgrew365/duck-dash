@@ -280,16 +280,18 @@ void plot_line(UINT32 *base, int start_row, int start_col, int end_row, int end_
 
  OUTPUT: None
 */
+
 void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
     UINT16 r;
+
     if (row >= SCREEN_HEIGHT || col >= SCREEN_WIDTH)
         return;
 
-    if (row < 0) { 
-        length += row; row = 0; 
+    if (row < 0) {
+        length += row; row = 0;
     }
-    if (col < 0) { 
-        width += col; col = 0; 
+    if (col < 0) {
+        width += col; col = 0;
     }
 
     if (row + length > SCREEN_HEIGHT)
@@ -297,8 +299,15 @@ void plot_rectangle(UINT32 *base, int row, int col, UINT16 length, UINT16 width)
     if (col + width > SCREEN_WIDTH)
         width = SCREEN_WIDTH - col;
 
-    for (r = 0; r < length; r++)
-        plot_horizontal_line(base, row + r, col, width);
+    /* ===== TOP & BOTTOM ===== */
+    plot_horizontal_line(base, row, col, width);
+    plot_horizontal_line(base, row + length - 1, col, width);
+
+    /* ===== LEFT & RIGHT ===== */
+    for (r = 0; r < length; r++) {
+        plot_pixel((UINT8 *)base, row + r, col);                 /* left */
+        plot_pixel((UINT8 *)base, row + r, col + width - 1);     /* right */
+    }
 }
 
 
