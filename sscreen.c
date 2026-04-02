@@ -62,13 +62,13 @@ void initilizeSplashScreen(UINT32 *base)
 
     /* DUCK */
     plot_16bit_bitmap((UINT16 *) base, 50, 50, capitalD, 16);
-    plot_16bit_bitmap((UINT16 *) base, 70, 50, capitalU, 16);
-    plot_16bit_bitmap((UINT16 *) base, 90, 50, capitalC, 16);
-    plot_16bit_bitmap((UINT16 *) base, 110, 50, capitalK, 16);
+    plot_16bit_bitmap((UINT16 *) base, 50, 100, capitalU, 16);
+    plot_16bit_bitmap((UINT16 *) base, 50, 150, capitalC, 16);
+    plot_16bit_bitmap((UINT16 *) base, 50, 200, capitalK, 16);
 
     /* DASH */
-    plot_16bit_bitmap((UINT16 *) base, 50, 100, capitalD, 16);
-    plot_16bit_bitmap((UINT16 *) base, 70, 100, capitalA, 16);
-    plot_16bit_bitmap((UINT16 *) base, 90, 100, capitalS, 16);
-    plot_16bit_bitmap((UINT16 *) base, 110, 100, capitalH, 16);
+    plot_16bit_bitmap((UINT16 *) base, 50, 250, capitalD, 16);
+    plot_16bit_bitmap((UINT16 *) base, 50, 300, capitalA, 16);
+    plot_16bit_bitmap((UINT16 *) base, 50, 350, capitalS, 16);
+    plot_16bit_bitmap((UINT16 *) base, 50, 400, capitalH, 16);
 }
