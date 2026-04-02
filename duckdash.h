@@ -3,7 +3,7 @@ File: DUCKDASH.H
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 3 - COMP 2659 
-Date Modified: March 15, 2026
+Date Modified: April 2, 2026
 File Description: Declares helper functions that are implemented in duckdash.c.
                   Specifically, for timer and screen buffering.
 */
@@ -11,26 +11,42 @@ File Description: Declares helper functions that are implemented in duckdash.c.
 #ifndef DUCKDASH_H
 #define DUCKDASH_H
 
+#include "types.h"
 #include "model.h"
 
-/*----- Function: get_time -----
-Purpose: Safely reads the TOS 70Hz system clock by entering supervisor mode.
+#include <osbind.h>
+
+/* ----- Function: get_time -----
+
+Purpose: Reads the system 70Hz TOS clock safely using supervisor mode.
 
 Input: None
 
-Output: Current value of the system clock (UINT32)
+Output: Current system time (UINT32)
 */
 UINT32 get_time(void);
 
-/* ----- Function: copy_buffer -----
-Purpose: Copies the contents of the source screen buffer into the destination
-         screen buffer for rendering.
 
-Input: src (UINT32*): pointer to the source buffer
-       dst (UINT32*): pointer to the destination buffer
+/* ----- Function: wait_for_vbl -----
+
+Purpose: Waits for vertical blanking interval to synchronize screen updates.
+
+Input: None
 
 Output: None
 */
-void copy_buffer(UINT32 *src, UINT32 *dst);
+void wait_for_vbl(void);
+
+
+/* ----- Function: run_game -----
+
+Purpose: Runs the main game loop including input handling, model updates,
+         rendering, and music updates.
+
+Input: None
+
+Output: None
+*/
+void run_game(void);
 
 #endif

@@ -3,10 +3,10 @@ File: DUCKDASH.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 3 - COMP 2659 
-Date Modified: March 15, 2026
+Date Modified: April 2, 2026
 File Description: Contains the main game loop for DuckDash. This file handles
-                  initialization, timing, input processing, model updates,
-                  conditional event processing, rendering, and buffer copying.
+                  initialization, timing, input processing, model updates, sound
+                  conditional event processing, rendering, and double buffering.
 */
 #include "duckdash.h"
 #include "model.h"
@@ -16,6 +16,11 @@ File Description: Contains the main game loop for DuckDash. This file handles
 #include "synch.h"
 #include "cond.h"
 #include "sscreen.h"
+
+#include "music.h"
+#include "psg.h"
+#include "effects.h"
+
 #include <osbind.h>
 
 #define CLOCK_ADDRESS 0x462
@@ -29,12 +34,13 @@ UINT8 raw_buffer2[SCREEN_SIZE + 256];
 UINT32 *buffer1;
 UINT32 *buffer2;
 
-/*----- Function: get_time -----
-Purpose: Safely reads the TOS 70Hz system clock by entering supervisor mode.
+/* ----- Function: get_time -----
+
+Purpose: Reads the system 70Hz TOS clock safely using supervisor mode.
 
 Input: None
 
-Output: Current value of the system clock (UINT32)
+Output: Current system time (UINT32)
 */
 UINT32 get_time() {
     UINT32 time;
@@ -44,7 +50,14 @@ UINT32 get_time() {
     return time;
 }
 
-/*----- Function: wait_for_vbl -----*/
+/* ----- Function: wait_for_vbl -----
+
+Purpose: Waits for vertical blanking interval to synchronize screen updates.
+
+Input: None
+
+Output: None
+*/
 void wait_for_vbl() {
     long old_ssp = Super(0);
 
@@ -55,26 +68,33 @@ void wait_for_vbl() {
 }
 
 
-void run_game()
-{
+/* ----- Function: run_game -----
+
+Purpose: Runs the main game loop including input handling, model updates,
+         rendering, and music updates.
+
+Input: None
+
+Output: None
+*/
+void run_game() {
+    /* Initialize model*/
     Model model = model_create_initial();
 
     UINT32 timeThen, timeNow;
     UINT32 elapsed_ticks = 0;
+
     char key;
 
     UINT32 *front;
     UINT32 *back;
     UINT32 *temp;
 
-    /* ===== initialize model ===== */
-    model.quit = false;
-
-    /* ===== buffer setup ===== */
+    /* Buffer setup */
     front = buffer1;
     back  = buffer2;
 
-    /* ===== render first frame ===== */
+    /* Render first frame */
     render(&model, back);
     wait_for_vbl();
     Setscreen(back, back, -1);
@@ -83,36 +103,41 @@ void run_game()
     front = back;
     back = temp;
 
+    /* Start music */
+    start_music();
+
+    /* Set quit = false */
+    model.quit = false;
+
     timeThen = get_time();
 
-    /* ===== main game loop ===== */
-    while (!model.quit)
-    {
-        /* ===== ASYNC INPUT ===== */
-        if (has_input())
-        {
+    /* Main game loop */
+    while (!model.quit) {
+        /* Process Async input if input is pending */
+        if (has_input()) {
             key = get_input();
-            while (has_input()) get_input();
 
-            /* process async event */
+            while (has_input())
+                get_input();
+
             if (key == ESC_KEY)
                 quit_game(&model);
             else if (key == SPACE_BAR)
                 duck_jump(&model);
         }
 
-        /* ===== CLOCK CHECK ===== */
+        /* Clock check */
         timeNow = get_time();
 
-        if (timeNow > timeThen)
-        {
+        /* If the clock has ticked */
+        if (timeNow > timeThen) {
             elapsed_ticks++;
 
-            /* ===== SYNC EVENTS ===== */
+            /* Process sync events */
             update_duck(&model);
             update_buildings(&model);
 
-            /* ===== CONDITIONAL EVENTS ===== */
+            /* Process cond events */
             building_appearance(&model, elapsed_ticks);
             speed_increase(&model, elapsed_ticks);
             update_score(&model, elapsed_ticks);
@@ -120,40 +145,47 @@ void run_game()
 
             timeThen = timeNow;
 
-            /* ===== RENDER NEXT FRAME ===== */
+            /* Render next frame*/
             render(&model, back);
+
             wait_for_vbl();
             Setscreen(back, back, -1);
 
             temp = front;
             front = back;
             back = temp;
+
+            /* Update music*/
+            update_music(timeNow);
         }
     }
+
+    stop_music();
 }
 
+/* ----- Function: main -----
 
-int main()
-{
+Purpose: Entry point of the program. Runs splash screen and starts game loop.
+
+Input: None
+
+Output: Program exit code (int)
+*/
+int main() {
     UINT32 *base;
     int choice;
 
-    /* ALIGN BUFFERS */
     buffer1 = (UINT32 *)(((long)raw_buffer1 + 255) & ~255);
     buffer2 = (UINT32 *)(((long)raw_buffer2 + 255) & ~255);
 
     base = (UINT32 *)Physbase();
 
-    /* ===== MAIN PROGRAM LOOP ===== */
-    while (1)
-    {
-        /* splash screen */
+    while (1) {
         choice = run_splash_screen(base);
 
         if (choice == 0)
             break;
 
-        /* run game */
         run_game();
     }
 

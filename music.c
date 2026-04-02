@@ -6,7 +6,7 @@ typedef struct {
     int duration;
 } Note;
 
-/* 🎵 MELODY (Channel A) — fast + catchy */
+/* MELODY (Channel A)  */
 Note melody[] = {
     {600,2},{700,2},{800,2},{700,2},
     {750,2},{700,2},{600,3},{0,1},
@@ -15,13 +15,13 @@ Note melody[] = {
     {800,2},{700,2},{600,3},{0,1}
 };
 
-/* 🔊 BASS (Channel B) — constant motion */
+/* BASS (Channel B) */
 Note bass[] = {
     {1000,4},{900,4},{800,4},{900,4},
     {1000,4},{900,4},{800,4},{900,4}
 };
 
-/* 🥁 RHYTHM (Channel C) — fast ticks */
+/* RHYTHM (Channel C) — fast ticks */
 Note rhythm[] = {
     {1,1},{0,1},{1,1},{0,1},
     {1,1},{0,1},{1,1},{0,1}
@@ -56,23 +56,23 @@ void update_music(UINT32 time_elapsed) {
 
     int speed = 1;
 
-    /* 🔥 dynamic speed (feels like runner accelerating) */
+    /* dynamic speed */
     if (time_elapsed > 200) speed = 1;
     if (time_elapsed > 400) speed = 0;
 
     if (time_elapsed - last_time >= (speed + 1)) {
 
-        /* 🎵 MELODY */
+        /* MELODY */
         m_index = (m_index + 1) % 16;
 
         if (melody[m_index].tone != 0)
             set_tone(0, melody[m_index].tone);
 
-        /* 🔊 BASS */
+        /* BASS */
         b_index = (b_index + 1) % 8;
         set_tone(1, bass[b_index].tone);
 
-        /* 🥁 RHYTHM */
+        /* RHYTHM */
         r_index = (r_index + 1) % 8;
 
         if (rhythm[r_index].tone == 0) {
@@ -84,4 +84,8 @@ void update_music(UINT32 time_elapsed) {
 
         last_time = time_elapsed;
     }
+}
+
+void stop_music() {
+    stop_sound();
 }
