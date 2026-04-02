@@ -3,7 +3,7 @@ File: DUCKDASH.C
 Names: Manroop Grewal, Sarah Fazal
 Instructor: Steve Kalmar
 Assignment: Checkpoint 3 - COMP 2659 
-Date Modified: March 27, 2026
+Date Modified: March 15, 2026
 File Description: Contains the main game loop for DuckDash. This file handles
                   initialization, timing, input processing, model updates,
                   conditional event processing, rendering, and buffer copying.
@@ -15,14 +15,18 @@ File Description: Contains the main game loop for DuckDash. This file handles
 #include "asynch.h"
 #include "synch.h"
 #include "cond.h"
-#include "music.h"
-#include "effects.h"
 #include <osbind.h>
 
 #define CLOCK_ADDRESS 0x462
 #define SCREEN_SIZE 32000
 
-UINT32 screen_buffer[SCREEN_SIZE / 4];
+/* Raw buffers for alignment */
+UINT8 raw_buffer1[SCREEN_SIZE + 256];
+UINT8 raw_buffer2[SCREEN_SIZE + 256];
+
+/* Aligned buffers */
+UINT32 *buffer1;
+UINT32 *buffer2;
 
 /*----- Function: get_time -----
 Purpose: Safely reads the TOS 70Hz system clock by entering supervisor mode.
@@ -34,29 +38,20 @@ Output: Current value of the system clock (UINT32)
 UINT32 get_time() {
     UINT32 time;
     long old_ssp = Super(0);
-
     time = *((UINT32 *)CLOCK_ADDRESS);
-
     Super(old_ssp);
     return time;
 }
 
-/* ----- Function: copy_buffer -----
-Purpose: Copies the contents of the source screen buffer into the destination
-         screen buffer for rendering.
+/*----- Function: wait_for_vbl -----*/
+void wait_for_vbl() {
+    long old_ssp = Super(0);
 
-Input: src (UINT32*): pointer to the source buffer
-       dst (UINT32*): pointer to the destination buffer
+    while (!(*((volatile UINT8 *)0xFFFF8209) & 0x80));
+    while (*((volatile UINT8 *)0xFFFF8209) & 0x80);
 
-Output: None
-*/
-void copy_buffer(UINT32 *src, UINT32 *dst) {
-    int i;
-    for (i = 0; i < SCREEN_SIZE / 4; i++) {
-        dst[i] = src[i];
-    }
+    Super(old_ssp);
 }
-
 
 /* ----- Function: main -----
 Purpose: Entry point of the game. Initializes state and runs the main loop.
@@ -66,34 +61,45 @@ Input: None
 Output: 0 on successful termination
 */
 int main() {
-    /* Initialize model*/
     Model model = model_create_initial();
 
     UINT32 timeThen, timeNow;
     UINT32 elapsed_ticks = 0;
     char key;
-    UINT32 *video_base;
 
-    int collision_played = 0;
+    UINT32 *front;
+    UINT32 *back;
+    UINT32 *temp;
 
-    video_base = (UINT32 *)get_video_base();
+    /* C89 variable declarations */
+    int max_updates;
+    int updates;
+    int updated;
 
-    /* Render model (first frame)*/
-    render(&model, screen_buffer);
-    copy_buffer(screen_buffer, video_base);
+    /* -------- ALIGN BUFFERS -------- */
+    buffer1 = (UINT32 *)(((long)raw_buffer1 + 255) & ~255);
+    buffer2 = (UINT32 *)(((long)raw_buffer2 + 255) & ~255);
 
-    /*Start sound*/
-    start_music();
-    play_game_start();
+    front = buffer1;
+    back  = buffer2;
 
-    /* Set quit = false*/
     model.quit = false;
+
+    /* -------- INITIAL FRAME -------- */
+    render(&model, back);
+    wait_for_vbl();
+    Setscreen(back, back, -1);
+
+    temp = front;
+    front = back;
+    back = temp;
 
     timeThen = get_time();
 
-    /* Main game loop which will be repeated until quit*/
+    /* -------- MAIN LOOP -------- */
     while (!model.quit) {
-        /* Async events: process input if given */
+
+        /* -------- INPUT -------- */
         if (has_input()) {
             key = get_input();
 
@@ -106,13 +112,17 @@ int main() {
             }
             else if (key == SPACE_BAR) {
                 duck_jump(&model);
-                play_jump();
             }
         }
 
-        /* Sync events: processes on clock ticks*/
+        /* -------- TIMING -------- */
         timeNow = get_time();
-        if (timeNow != timeThen) {
+
+        max_updates = 2;
+        updates = 0;
+        updated = 0;
+
+        while (timeNow > timeThen && updates < max_updates) {
 
             elapsed_ticks++;
 
@@ -122,27 +132,27 @@ int main() {
             speed_increase(&model, elapsed_ticks);
             update_score(&model, elapsed_ticks);
 
-            /* Cond events */
             process_cond_events(&model);
 
-            /* When the duck collides with a building, sound is played*/
-            if (model.quit && !collision_played) {
-                play_collision();
-                collision_played = 1;
-            }
+            timeThen++;
+            updates++;
+            updated = 1;
+        }
 
-            /* Render model (next frame)*/
-            render(&model, screen_buffer);
-            copy_buffer(screen_buffer, video_base);
+        /* -------- RENDER -------- */
+        if (updated) {
+            render(&model, back);
 
-            update_music(elapsed_ticks);
+            wait_for_vbl();
 
-            /* Update clock*/
-            timeThen = timeNow;
+            Setscreen(back, back, -1);
+
+            /* swap buffers */
+            temp = front;
+            front = back;
+            back = temp;
         }
     }
-
-    stop_sound();
 
     return 0;
 }
