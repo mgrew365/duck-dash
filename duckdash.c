@@ -7,11 +7,11 @@ Date Modified: April 2, 2026
 File Description: Contains the main game loop for DuckDash. This file handles
                   initialization, timing, input processing, model updates, sound
                   conditional event processing, rendering, and double buffering.
+
+Limitations: Currently to play the game, you must click on the fast foward button
+             which causes no sound to play.  
 */
-#include "duckdash.h"
-#include "model.h"
-#include "renderer.h"
-#include "input.h"
+
 #include "asynch.h"
 #include "synch.h"
 #include "cond.h"
