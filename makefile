@@ -1,6 +1,7 @@
 CC = cc68x
 
-OBJS = duckdash.o model.o renderer.o raster.o font.o input.o synch.o asynch.o cond.o
+OBJS = duckdash.o model.o renderer.o raster.o font.o input.o synch.o asynch.o cond.o \
+       psg.o music.o effects.o splash.o
 
 duckdash.tos: $(OBJS)
 	$(CC) -o duckdash.tos $(OBJS)
@@ -31,6 +32,18 @@ asynch.o: asynch.c
 
 cond.o: cond.c
 	$(CC) -c cond.c
+
+psg.o: psg.c
+	$(CC) -c psg.c
+
+music.o: music.c
+	$(CC) -c music.c
+
+effects.o: effects.c
+	$(CC) -c effects.c
+
+splash.o: splash.c
+	$(CC) -c splash.c
 
 clean:
 	rm *.o
