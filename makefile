@@ -42,7 +42,7 @@ music.o: music.c
 effects.o: effects.c
 	$(CC) -c effects.c
 
-splash.o: sscreen.c
+sscreen.o: sscreen.c
 	$(CC) -c sscreen.c
 
 clean:
