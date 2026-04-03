@@ -1,18 +1,40 @@
+/*
+File: TSTSOUND.C
+Names: Manroop Grewal, Sarah Fazal
+Instructor: Steve Kalmar
+Assignment: Checkpoint 4 - COMP 2659 
+Date Modified: April 2, 2026
+File Description: This is a test driver for the PSG sound/effects.
+                  This file tests sound that is later implemented in 
+                  the main game.
+*/
+
 #include <osbind.h>
 #include "psg.h"
 #include "music.h"
 #include "effects.h"
 
+/* ----- Function: delay -----
 
-/* Simple delay loop (not precise, but fine for testing) */
+Purpose: Provides a simple blocking delay for testing sound playback timing.
+
+Input: long time: Delay duration multiplier
+
+Output: None
+*/
 void delay(long time) {
     long i;
     for (i = 0; i < time * 1000; i++);
 }
 
-/* =========================
-   PSG TEST
-========================= */
+/* ----- Function: test_psg -----
+
+Purpose: Tests basic PSG functionality including tone, volume control, and channel enabling.
+
+Input: None
+
+Output: None
+*/
 void test_psg() {
     Cconws("Testing PSG...\r\n");
 
@@ -29,9 +51,16 @@ void test_psg() {
 
     Cconws("PSG test done.\r\n\n");
 }
-/* =========================
-   EFFECTS TEST
-========================= */
+
+
+/* ----- Function: test_effects -----
+
+Purpose: Tests game sound effects such as start, jump, and collision sounds.
+
+Input: None
+
+Output: None
+*/
 void test_effects() {
     Cconws("Testing Effects...\r\n");
 
@@ -52,40 +81,21 @@ void test_effects() {
     Cconws("Effects test done.\r\n\n");
 }
 
-/* =========================
-   MUSIC TEST
-========================= */
-void test_music() {
-    UINT32 time;
-    int i;
 
-    time = 0;
+/* ----- Function: main -----
 
-    Cconws("Testing Music (loop for ~10 seconds)...\r\n");
+Purpose: Entry point for the sound test program. Runs PSG and effects tests.
 
-    start_music();
+Input: None
 
-    for (i = 0; i < 700; i++) {  
-        update_music(time);
-        time++;
-        delay(20);
-    }
-
-    stop_sound();
-
-    Cconws("Music test done.\r\n\n");
-}
-
-/* =========================
-   MAIN TEST DRIVER
-========================= */
+Output: Program exit status (int)
+*/
 int main() {
 
-    Cconws("=== SOUND TEST DRIVER ===\r\n\n");
+    Cconws("SOUND TEST DRIVER\r\n\n");
 
     test_psg();
     test_effects();
-    test_music();
 
     Cconws("All tests complete.\r\n");
 
