@@ -14,6 +14,8 @@ File Description: This is handles a splash screen for Duck Dash.
 #include "sscreen.h"
 #include "raster.h"
 #include "font.h"
+#include "input.h"
+
 
 /* BITMAPS */
 
