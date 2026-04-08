@@ -75,6 +75,8 @@ void render(const Model *model, UINT32 *base) {
     int i;
     char number[10];
 
+    /*Use clear region instead of clear screen to only clear aroudn the specfic region, it can be in the specfic fucntion.*/
+
     /* Clear the screen  */
     clear_screen(base);
 
