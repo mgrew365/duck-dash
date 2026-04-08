@@ -67,26 +67,18 @@ void clear_region(UINT32 *base, int row, int col, UINT16 length, UINT16 width) {
  OUTPUT: None
 
 */
-void plot_pixel(UINT8 *base, int row, int col){
+void plot_pixel(UINT8 *base, int row, int col) {
     UINT16 *word;
-    int r;
 
-    /* Handles bounds and clipping */
+    /* bounds check */
     if (row < 0 || row >= SCREEN_HEIGHT)
         return;
     if (col < 0 || col >= SCREEN_WIDTH)
         return;
 
-    word = (UINT16 *)base;
+    word = (UINT16 *)base + (row * 40) + (col >> 4);
 
-    /* Move down row rows (40 words per row) */
-    for (r = 0; r < row; r++)
-        word += 40;
-
-    /* Move to correct word in the row */
-    word += (col >> 4);
-
-    /* Set the pixel bit */
+    /* set pixel */
     *word |= (1 << (15 - (col & 15)));
 }
 
@@ -465,23 +457,32 @@ void plot_16bit_bitmap(UINT16 *base, int row, int col, const UINT16 *bitmap, UIN
 */
 void plot_32bit_bitmap(UINT32 *base, int row, int col, const UINT32 *bitmap, UINT16 height) {
     UINT16 r, c;
-    int draw_row, draw_col;
+    int draw_row;
+    UINT32 bits;
 
     for (r = 0; r < height; r++) {
+
         draw_row = row + r;
         if (draw_row < 0 || draw_row >= SCREEN_HEIGHT)
             continue;
 
-        for (c = 0; c < 32; c++) {
-            draw_col = col + c;
-            if (draw_col < 0 || draw_col >= SCREEN_WIDTH)
-                continue;
+        bits = bitmap[r];  /* get full row once */
 
-            if (bitmap[r] & (0x80000000UL >> c))
-                plot_pixel((UINT8 *)base, draw_row, draw_col);
+        for (c = 0; c < 32; c++) {
+
+            if (bits & 0x80000000UL) {
+                int draw_col = col + c;
+
+                if (draw_col >= 0 && draw_col < SCREEN_WIDTH) {
+                    plot_pixel((UINT8 *)base, draw_row, draw_col);
+                }
+            }
+
+            bits <<= 1;  /* shift instead of recomputing mask */
         }
     }
 }
+
 /*----- Function: plot_character -----
 
  PURPOSE: Plots a single character, as a bitmap from a font table, to the screen.

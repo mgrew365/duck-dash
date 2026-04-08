@@ -7,11 +7,11 @@ Date Modified: April 2, 2026
 File Description: Contains the main game loop for DuckDash. This file handles
                   initialization, timing, input processing, model updates, sound
                   conditional event processing, rendering, and double buffering.
-
-Limitations: Currently to play the game, you must click on the fast foward button
-             which causes no sound to play.  
 */
-
+#include "duckdash.h"
+#include "model.h"
+#include "renderer.h"
+#include "input.h"
 #include "asynch.h"
 #include "synch.h"
 #include "cond.h"
@@ -108,11 +108,11 @@ void run_game() {
 
     /* Set quit = false */
     model.quit = false;
-
     timeThen = get_time();
 
-    /* Main game loop */
+    /* MAIN LOOP */
     while (!model.quit) {
+
         /* Process Async input if input is pending */
         if (has_input()) {
             key = get_input();
@@ -126,11 +126,11 @@ void run_game() {
                 duck_jump(&model);
         }
 
-        /* Clock check */
+        /* If the clock has ticked */
         timeNow = get_time();
 
-        /* If the clock has ticked */
         if (timeNow > timeThen) {
+
             elapsed_ticks++;
 
             /* Process sync events */
@@ -142,8 +142,6 @@ void run_game() {
             speed_increase(&model, elapsed_ticks);
             update_score(&model, elapsed_ticks);
             process_cond_events(&model);
-
-            timeThen = timeNow;
 
             /* Render next frame*/
             /* Dont render the full funtion
