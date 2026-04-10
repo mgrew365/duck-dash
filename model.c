@@ -15,39 +15,54 @@ File Description: This file defines the game model and basic movement functions 
 
 /* Sprite Data*/
 const UINT32 duck_bitmap[32] = {
-    0x00000000,
-    0x00000000,
-    0x000FE000,
-    0x000FE000,
-    0x00301800,
-    0x00301800,
-    0x00301800,
-    0x00C0C600,
-    0x00C0C600,
-    0x00C0C600,
-    0x00C00180,
-    0x00C00180,
-    0x00C00180,
-    0x00C00600,
-    0x0F000600,
-    0x0F000600,
-    0x0F000600,
-    0x0C181800,
-    0x0C181800,
-    0x0C181800,
-    0x0C601800,
-    0x0C601800,
-    0x0C601800,
-    0x0C181800,
-    0x0C181800,
-    0x0C181800,
-    0x03001800,
-    0x03001800,
-    0x03001800,
-    0x00FFE000,
-    0x00FFE000,
-    0x00000000
+    0x0007FFC0,
+    0x0007FFC0,
+    0x0007FFC0,
+
+    0x00380038,
+    0x00380038,
+    0x00380038,
+
+    0x00387038,
+
+    0x01C07007,
+    0x01C07007,
+    0x01C07007,
+
+    0x01C00007,
+
+    0x01C00038,
+    0x01C00038,
+    0x01C00038,
+    0x01C00038,
+
+    0xFE0001C0,
+
+    0xFE1C01C0,
+    0xFE1C01C0,
+    0xFE1C01C0,
+
+
+    0xE01C0E00,
+
+    0xE0E00E00,
+    0xE0E00E00,
+    0xE0E00E00,
+    0xE0E00E00,
+
+    0xE01C0E00,
+
+    0x1C1C0E00,
+    0x1C1C0E00,
+    0x1C1C0E00,
+
+    0x1C000E00,
+
+    0x03FFF000,
+    0x03FFF000,
+    0x03FFF000
 };
+
 
 /* Temporary Building Bitmap*/
 const UINT32 building_bitmap[32] = {
