@@ -144,6 +144,8 @@ void run_game() {
             process_cond_events(&model);
 
             /* Render next frame*/
+            /* Dont render the full funtion
+            Specfically, render duck and buildings*/
             render(&model, back);
 
             wait_for_vbl();
