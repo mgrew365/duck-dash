@@ -96,12 +96,16 @@ void initilize_splash_screen(UINT32 *base) {
     /* 1 player box */
     plot_rectangle(base, 140, 60, 40, 200);
 
-    /* Quit Game box */
+    /* 2 player box */
     plot_rectangle(base, 200, 60, 40, 200);
+
+    /* Quit game box */
+    plot_rectangle(base, 260, 60, 40, 200);
 
     /* Center text inside boxes */
     plot_string((UINT8 *)base, 155, 90, "1-Player (1)");
-    plot_string((UINT8 *)base, 215, 80, "Quit Game (ESC)");
+    plot_string((UINT8 *)base, 215, 80, "2-Player (2)");
+    plot_string((UINT8 *)base, 275, 80, "Quit Game (ESC)");
 }
 
 /* ----- Function: run_splash_screen -----
