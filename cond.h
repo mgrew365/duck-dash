@@ -66,15 +66,6 @@ Output: boolean value: true if duck has hit the ground, else false
 */
 bool duck_ground_collision(const Duck *duck);
 
-/* ----- Function: restart_game -----
-
-Purpose: This function determines if a game should be restarted.
-
-Input: Model *model: A pointer to current game model
-
-Output: boolean value: boolean value: true if the game has ended and should be restarted, else false
-*/
-bool restart_game(const Model *model);
 
 /* ----- Function: process_cond_events -----
 

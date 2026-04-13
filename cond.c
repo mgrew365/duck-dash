@@ -88,20 +88,6 @@ bool duck_ground_collision(const Duck *duck) {
     return duck->y >= (SCREEN_HEIGHT - FLOOR_BUFFER - DUCK_HEIGHT);
 }
 
-/* ----- Function: restart_game -----
-
-Purpose: This function determines if a game should be restarted.
-
-Input: Model *model: A pointer to current game model
-
-Output: boolean value: The restart_game logic hasn't been fully implemented yet, so false at the current moment
-*/
-bool restart_game(const Model *model) {
-    (void)model;
-
-    return false;
-}
-
 
 /* ----- Function: process_cond_events -----
 
