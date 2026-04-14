@@ -8,7 +8,6 @@ File Description: Contains the implementation of rendering functions for all the
                   play objects. Each of the functions draws a specfic object using the raster graphics.
 Limitations: The render function, clears the whole screen each time instead of specfically the region. The
 clear region for just the moving objects was unable to be functional in time for submission.
-
 */
 
 #include <osbind.h>

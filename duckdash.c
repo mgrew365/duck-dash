@@ -8,6 +8,8 @@ File Description: Contains the main game loop for DuckDash. This file handles
                   initialization, timing, input processing, model updates, sound
                   conditional event processing, rendering, and double buffering.
 Limitations: The duck speed is not optimal, this is possibly issue in rendering and the clear screen. 
+             Due to this, our sound is not fully functioning in main game loop.
+             However, sound can be tested using tstsound.c.
 */
 #include "duckdash.h"
 #include "model.h"
