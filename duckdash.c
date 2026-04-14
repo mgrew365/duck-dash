@@ -7,6 +7,7 @@ Date Modified: April 2, 2026
 File Description: Contains the main game loop for DuckDash. This file handles
                   initialization, timing, input processing, model updates, sound
                   conditional event processing, rendering, and double buffering.
+Limitations: The duck speed is not optimal, this is possibly issue in rendering and the clear screen. 
 */
 #include "duckdash.h"
 #include "model.h"
@@ -145,8 +146,6 @@ void run_game() {
             process_cond_events(&model);
 
             /* Render next frame*/
-            /* Dont render the full funtion
-            Specfically, render duck and buildings*/
             render(&model, back);
 
             wait_for_vbl();

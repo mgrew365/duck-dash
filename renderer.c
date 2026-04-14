@@ -6,6 +6,8 @@ Assignment: Checkpoint 2 - COMP 2659
 Date Modified: March 15, 2026
 File Description: Contains the implementation of rendering functions for all the game
                   play objects. Each of the functions draws a specfic object using the raster graphics.
+Limitations: The render function, clears the whole screen each time instead of specfically the region. The
+clear region for just the moving objects was unable to be functional in time for submission.
 
 */
 
@@ -74,8 +76,6 @@ Output: None
 void render(const Model *model, UINT32 *base) {
     int i;
     char number[10];
-
-    /*Use clear region instead of clear screen to only clear aroudn the specfic region, it can be in the specfic fucntion.*/
 
     /* Clear the screen  */
     clear_screen(base);
