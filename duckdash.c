@@ -16,6 +16,7 @@ File Description: Contains the main game loop for DuckDash. This file handles
 #include "synch.h"
 #include "cond.h"
 #include "sscreen.h"
+#include "raster.h"
 
 #include "music.h"
 #include "psg.h"
@@ -159,6 +160,23 @@ void run_game() {
             update_music(timeNow);
         }
     }
+
+    /* -------- GAME OVER SCREEN -------- */
+
+    clear_screen(front);
+
+    plot_string((UINT8*)front, 180, 260, "GAME OVER");
+    plot_string((UINT8*)front, 280, 240, "PRESS ESC TO QUIT");
+
+    wait_for_vbl();
+    Setscreen(front, front, -1);
+
+    /* wait for key press */
+    while (!has_input());
+
+    /* clear input buffer */
+    while (has_input())
+        get_input();
 
     stop_music();
 }
